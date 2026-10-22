@@ -207,7 +207,15 @@
     100% { transform: translateY(110vh) translateX(-80px); opacity: .3; }
   }
 
-  /* CRT эффект и УСИЛЕННОЕ затемнение */
+  /* === ЗАТЕМНЕНИЕ === */
+  .boot .dark-overlay {
+    position: absolute; inset: 0;
+    background: rgba(6, 13, 9, 0.55); /* Усиленное общее затемнение */
+    z-index: 20; /* Поверх гор и палатки, но под логами */
+    pointer-events: none;
+  }
+
+  /* CRT эффект и виньетка */
   .boot .crt-lines {
     position: absolute; inset: 0;
     background: repeating-linear-gradient(0deg, rgba(63,127,191,.08) 0 1px, transparent 1px 3px);
@@ -215,14 +223,14 @@
   }
   .boot .vignette {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 5%, rgba(6,13,9,.99) 100%);
+    background: radial-gradient(ellipse at center, transparent 10%, rgba(6,13,9,.99) 100%);
     pointer-events: none; z-index: 29;
   }
 
   /* Логи */
   .boot .boot-log {
     position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%);
-    width: min(680px, 88vw); z-index: 15;
+    width: min(680px, 88vw); z-index: 35; /* Логи поверх затемнения */
     color: #bfe6d0; font-family: "Courier New", monospace;
     font-size: 11px; letter-spacing: 1.5px;
     text-shadow: 0 0 6px rgba(63,127,191,.5); pointer-events: none;
@@ -783,7 +791,10 @@
   <!-- Снежная вьюга -->
   <div class="blizzard" id="blizzard"></div>
 
-  <!-- CRT линии и затемнение -->
+  <!-- УСИЛЕННОЕ ЗАТЕМНЕНИЕ -->
+  <div class="dark-overlay"></div>
+
+  <!-- CRT линии и виньетка -->
   <div class="crt-lines"></div>
   <div class="vignette"></div>
 
