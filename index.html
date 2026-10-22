@@ -59,7 +59,7 @@
     92% { opacity: .75; }
   }
 
-  /* ================= BOOT: ГОРЫ В ПАЛИТРЕ САЙТА + ПАЛАТКА + ВЬЮГА ================= */
+  /* ================= BOOT-ЭКРАН ================= */
   .boot {
     position: fixed; inset: 0; z-index: 100;
     background: #060d09;
@@ -70,7 +70,7 @@
   }
   .boot.done { opacity: 0; transform: scale(1.04); pointer-events: none; }
 
-  /* Ночное небо в палитре сайта */
+  /* Ночное небо (цвета сайта) */
   .boot .sky {
     position: absolute; inset: 0;
     background:
@@ -82,53 +82,29 @@
         #060d09 100%);
     z-index: 0;
   }
-  /* Светило (луна) */
-  .boot .sky::before {
-    content: "";
-    position: absolute; top: 12%; right: 20%;
-    width: 50px; height: 50px;
-    background: #bfe6d0;
-    border-radius: 50%;
-    box-shadow: 0 0 30px rgba(191,230,208,.4), 0 0 80px rgba(127,196,255,.2);
-    opacity: .75;
-  }
-
-  /* Пиксельные горы (высокие, детализированные) */
-  .boot .mountains {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 75%;
-    z-index: 1;
-    image-rendering: pixelated;
-  }
-  .boot .mountains svg {
-    width: 100%; height: 100%; display: block;
-    shape-rendering: crispEdges;
-    image-rendering: pixelated;
-  }
 
   /* Снежная земля */
   .boot .snow-ground {
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 22%;
-    background:
-      repeating-linear-gradient(90deg,
-        #0e1c16 0 8px,
-        #10241a 8px 16px,
-        #0e1c16 16px 24px,
-        #12304f 24px 32px);
+    background: #0e1c16;
     border-top: 4px solid #2e5c42;
-    box-shadow: inset 0 20px 40px rgba(6,13,9,.6);
+    box-shadow: inset 0 20px 40px rgba(6,13,9,.8);
     z-index: 2;
   }
+  
+  /* Пиксельная детализация снега */
   .boot .snow-ground::before {
     content: "";
-    position: absolute; left: 0; right: 0; top: 0; height: 50%;
-    background: repeating-linear-gradient(90deg,
-      rgba(46,92,66,.15) 0 12px,
-      transparent 12px 24px);
-    image-rendering: pixelated;
+    position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 10% 20%, #10241a 2px, transparent 2px),
+      radial-gradient(circle at 30% 50%, #12304f 2px, transparent 2px),
+      radial-gradient(circle at 60% 30%, #10241a 3px, transparent 3px),
+      radial-gradient(circle at 80% 60%, #12304f 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: .6;
   }
 
   /* Сугробы */
@@ -140,39 +116,39 @@
     z-index: 3;
     image-rendering: pixelated;
   }
-  .boot .snowdrift.d1 { left: 0; width: 35%; height: 5%; border-radius: 0 70% 0 0 / 0 100% 0 0; }
-  .boot .snowdrift.d2 { right: 0; width: 40%; height: 6%; border-radius: 70% 0 0 0 / 100% 0 0 0; }
+  .boot .snowdrift.d1 { left: 0; width: 35%; height: 6%; border-radius: 0 80% 0 0 / 0 100% 0 0; }
+  .boot .snowdrift.d2 { right: 0; width: 40%; height: 7%; border-radius: 80% 0 0 0 / 100% 0 0 0; }
 
   /* Красные следы на снегу */
   .boot .blood-trail {
-    position: absolute; left: 0; right: 0; bottom: 10%; height: 15%; z-index: 4; pointer-events: none;
+    position: absolute; left: 0; right: 0; bottom: 12%; height: 15%; z-index: 4; pointer-events: none;
   }
   .boot .blood-trail .print {
-    position: absolute; width: 10px; height: 6px;
-    background: #a01010;
+    position: absolute; width: 12px; height: 8px;
+    background: #8b0000;
     border-radius: 40% 60% 50% 50% / 60% 60% 40% 40%;
-    box-shadow: 0 0 6px rgba(160,16,16,.6); opacity: .9;
+    box-shadow: 0 0 8px rgba(139,0,0,.8); opacity: .95;
     image-rendering: pixelated;
   }
   .boot .blood-trail .print::after {
-    content: ""; position: absolute; width: 2px; height: 2px;
-    background: #7a0808; border-radius: 50%; top: 2px; left: 2px;
+    content: ""; position: absolute; width: 3px; height: 3px;
+    background: #5a0000; border-radius: 50%; top: 1px; left: 2px;
   }
-  .boot .blood-trail .p1  { left: 10%;  bottom: 60%; transform: rotate(-12deg); }
-  .boot .blood-trail .p2  { left: 14%; bottom: 55%; transform: rotate(8deg); }
-  .boot .blood-trail .p3  { left: 18%; bottom: 48%; transform: rotate(-6deg); }
-  .boot .blood-trail .p4  { left: 22%; bottom: 42%; transform: rotate(14deg); }
-  .boot .blood-trail .p5  { left: 27%; bottom: 36%; transform: rotate(-10deg); }
-  .boot .blood-trail .p6  { left: 31%; bottom: 30%; transform: rotate(6deg); }
-  .boot .blood-trail .p7  { left: 36%; bottom: 26%; transform: rotate(-8deg); }
-  .boot .blood-trail .p8  { left: 40%; bottom: 22%; transform: rotate(10deg); }
+  .boot .blood-trail .p1  { left: 8%;  bottom: 70%; transform: rotate(-12deg); }
+  .boot .blood-trail .p2  { left: 12%; bottom: 64%; transform: rotate(8deg); }
+  .boot .blood-trail .p3  { left: 17%; bottom: 56%; transform: rotate(-6deg); }
+  .boot .blood-trail .p4  { left: 21%; bottom: 50%; transform: rotate(14deg); }
+  .boot .blood-trail .p5  { left: 26%; bottom: 42%; transform: rotate(-10deg); }
+  .boot .blood-trail .p6  { left: 30%; bottom: 35%; transform: rotate(6deg); }
+  .boot .blood-trail .p7  { left: 35%; bottom: 28%; transform: rotate(-8deg); }
+  .boot .blood-trail .p8  { left: 39%; bottom: 22%; transform: rotate(10deg); }
 
-  /* Палатка (анимация колыхания) */
+  /* ================= ПАЛАТКА (по 2-му референсу) ================= */
   .boot .tent {
     position: absolute;
     left: 50%; bottom: 20%;
     transform: translateX(-50%);
-    width: 300px; height: 210px;
+    width: 280px; height: 200px;
     z-index: 6;
     transform-origin: bottom center;
     animation: tentSway 3.5s ease-in-out infinite;
@@ -180,18 +156,18 @@
   }
   .boot .tent svg {
     width: 100%; height: 100%; display: block;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,.8));
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,.9));
     image-rendering: pixelated;
     shape-rendering: crispEdges;
   }
   @keyframes tentSway {
     0%, 100% { transform: translateX(-50%) skewX(0deg) scaleX(1); }
-    25% { transform: translateX(-50%) skewX(0.6deg) scaleX(0.995); }
-    50% { transform: translateX(-50%) skewX(-0.4deg) scaleX(1.005); }
-    75% { transform: translateX(-50%) skewX(0.5deg) scaleX(0.998); }
+    25% { transform: translateX(-50%) skewX(0.8deg) scaleX(0.99); }
+    50% { transform: translateX(-50%) skewX(-0.5deg) scaleX(1.01); }
+    75% { transform: translateX(-50%) skewX(0.6deg) scaleX(0.995); }
   }
 
-  /* Снежная вьюга */
+  /* ================= СНЕЖНАЯ ВЬЮГА ================= */
   .boot .blizzard {
     position: absolute; inset: 0;
     z-index: 8;
@@ -208,15 +184,17 @@
   @keyframes blizzardFall {
     0%   { transform: translateY(-10vh) translateX(0); opacity: 0; }
     10%  { opacity: 1; }
-    100% { transform: translateY(110vh) translateX(-60px); opacity: .3; }
+    100% { transform: translateY(110vh) translateX(-80px); opacity: .3; }
   }
 
+  /* CRT эффект */
   .boot .crt-lines {
     position: absolute; inset: 0;
     background: repeating-linear-gradient(0deg, rgba(63,127,191,.08) 0 1px, transparent 1px 3px);
     pointer-events: none; z-index: 30; animation: flicker 4s infinite;
   }
 
+  /* Логи */
   .boot .boot-log {
     position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
     width: min(680px, 88vw); z-index: 15;
@@ -428,11 +406,6 @@
     box-shadow: 0 0 8px rgba(127,224,168,.7);
   }
 
-  .redacted {
-    background: #12304f; color: transparent; text-shadow: none; user-select: none;
-    padding: 0 6px; border: 1px solid #0a1a2e; box-shadow: 0 0 8px #06101a; letter-spacing: 0;
-  }
-
   .items { border: 1px solid var(--green-soft); background: rgba(18,48,79,.22); padding: 0; }
   .item {
     display: grid; grid-template-columns: 46px 52px 1fr; align-items: center;
@@ -572,10 +545,7 @@
   .corner.bl { bottom: 6px; left: 6px; border-bottom: 1px solid; border-left: 1px solid; }
   .corner.br { bottom: 6px; right: 6px; border-bottom: 1px solid; border-right: 1px solid; }
 
-  /* ===== ЛЕГЕНДА СТАТУСОВ ===== */
-  .relation-legend {
-    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px;
-  }
+  .relation-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
   .legend-chip {
     font-size: 10px; font-weight: bold; letter-spacing: 2px;
     padding: 4px 10px; text-transform: uppercase;
@@ -584,7 +554,6 @@
     border: 1px solid rgba(0,0,0,.6);
     box-shadow: inset -1px -1px 0 0 rgba(0,0,0,.4), inset 1px 1px 0 0 rgba(255,255,255,.2);
   }
-  
   .rel-neutral     { --c: #8a8f8d; }
   .rel-dislike     { --c: #7a5a3a; }
   .rel-distrust    { --c: #6b5a4a; }
@@ -601,9 +570,7 @@
   .rel-worry       { --c: #d98a4a; }
   .rel-skepticism  { --c: #9a9a5a; }
 
-  .relation-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px;
-  }
+  .relation-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
   .rel-card {
     position: relative; padding: 12px 14px; border: 1px solid var(--green-soft);
     background: rgba(18,48,79,.22); cursor: pointer;
@@ -616,22 +583,10 @@
   }
   .rel-card:active { transform: translateX(2px) translateY(1px); }
 
-  .rel-card-head {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; margin-bottom: 6px; flex-wrap: wrap;
-  }
-  .rel-card-name {
-    font-size: 14px; letter-spacing: 1.5px; color: var(--green-glow);
-    font-weight: bold; text-shadow: 0 0 6px rgba(79,174,122,.5);
-  }
-  .rel-card-preview {
-    font-size: 11px; line-height: 1.5; color: var(--ink-dim); letter-spacing: 0.5px;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  }
-  .rel-card::after {
-    content: "▸"; position: absolute; top: 12px; right: 12px;
-    color: var(--green-bright); opacity: .5; font-size: 11px; transition: opacity .12s ease;
-  }
+  .rel-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .rel-card-name { font-size: 14px; letter-spacing: 1.5px; color: var(--green-glow); font-weight: bold; text-shadow: 0 0 6px rgba(79,174,122,.5); }
+  .rel-card-preview { font-size: 11px; line-height: 1.5; color: var(--ink-dim); letter-spacing: 0.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .rel-card::after { content: "▸"; position: absolute; top: 12px; right: 12px; color: var(--green-bright); opacity: .5; font-size: 11px; transition: opacity .12s ease; }
   .rel-card:hover::after { opacity: 1; }
 
   .rel-status {
@@ -650,7 +605,6 @@
     background: rgba(0,0,0,.85); backdrop-filter: blur(2px); padding: 20px;
   }
   .person-modal.visible { display: flex; animation: modalFade .2s ease-out; }
-
   .person-modal-box {
     position: relative; width: min(600px, 92vw); max-height: 88vh;
     background: var(--panel); border: 2px solid var(--green-soft);
@@ -666,21 +620,10 @@
   .person-modal-box::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
   .person-modal-box::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-  .person-modal-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    border-bottom: 2px solid var(--green-bright); padding-bottom: 10px;
-    margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
-  }
-  .person-modal-head .pm-title {
-    font-size: 13px; letter-spacing: 5px; color: var(--green-glow);
-    text-transform: uppercase; text-shadow: 0 0 10px rgba(79,174,122,.7);
-  }
+  .person-modal-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--green-bright); padding-bottom: 10px; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+  .person-modal-head .pm-title { font-size: 13px; letter-spacing: 5px; color: var(--green-glow); text-transform: uppercase; text-shadow: 0 0 10px rgba(79,174,122,.7); }
   .person-modal-head .pm-num { font-size: 11px; letter-spacing: 3px; color: var(--ink-dim); }
-
-  .person-modal-name {
-    font-size: 22px; letter-spacing: 3px; color: var(--green-glow);
-    margin-bottom: 10px; text-shadow: var(--glow-strong); text-transform: uppercase;
-  }
+  .person-modal-name { font-size: 22px; letter-spacing: 3px; color: var(--green-glow); margin-bottom: 10px; text-shadow: var(--glow-strong); text-transform: uppercase; }
   .person-modal-statuses { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
   .person-modal-statuses .rel-status { font-size: 10px; padding: 4px 10px; letter-spacing: 2px; }
   .person-modal-text { font-size: 13px; line-height: 1.8; color: var(--ink); letter-spacing: 0.5px; white-space: pre-line; }
@@ -694,53 +637,23 @@
   }
   .person-modal-close:hover { background: var(--green-soft); color: #fff; }
 
-  .coming-soon {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 16px; padding: 80px 20px; text-align: center; font-family: "Courier New", monospace;
-  }
-  .coming-soon .cs-mark {
-    font-size: 42px; letter-spacing: 10px; color: var(--green-glow);
-    text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5);
-    animation: csPulse 2s ease-in-out infinite;
-  }
-  .coming-soon .cs-line {
-    width: 220px; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
-    box-shadow: 0 0 10px rgba(127,224,168,.6);
-  }
+  .coming-soon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 80px 20px; text-align: center; font-family: "Courier New", monospace; }
+  .coming-soon .cs-mark { font-size: 42px; letter-spacing: 10px; color: var(--green-glow); text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5); animation: csPulse 2s ease-in-out infinite; }
+  .coming-soon .cs-line { width: 220px; height: 2px; background: linear-gradient(90deg, transparent, var(--green-glow), transparent); box-shadow: 0 0 10px rgba(127,224,168,.6); }
   .coming-soon .cs-sub { font-size: 12px; letter-spacing: 4px; color: var(--ink-dim); text-transform: uppercase; }
-  @keyframes csPulse {
-    0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5); }
-    50% { opacity: .7; text-shadow: 0 0 10px rgba(127,224,168,.5), 0 0 30px rgba(18,48,79,.3); }
-  }
+  @keyframes csPulse { 0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5); } 50% { opacity: .7; text-shadow: 0 0 10px rgba(127,224,168,.5), 0 0 30px rgba(18,48,79,.3); } }
 
-  .footer {
-    margin-top: 14px; border-top: 1px dashed var(--green-soft); padding-top: 10px;
-    display: flex; justify-content: space-between;
-    font-size: 12px; color: var(--ink-dim); letter-spacing: 2px;
-    flex: 0 0 auto; gap: 12px; flex-wrap: wrap;
-  }
+  .footer { margin-top: 14px; border-top: 1px dashed var(--green-soft); padding-top: 10px; display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-dim); letter-spacing: 2px; flex: 0 0 auto; gap: 12px; flex-wrap: wrap; }
   .footer .keys span { color: var(--green-glow); border: 1px solid var(--green-soft); padding: 1px 6px; margin-right: 4px; }
 
-  .glitch {
-    position: absolute; inset: 0; pointer-events: none;
-    background: #4fae7a; mix-blend-mode: overlay; opacity: 0; z-index: 9;
-  }
+  .glitch { position: absolute; inset: 0; pointer-events: none; background: #4fae7a; mix-blend-mode: overlay; opacity: 0; z-index: 9; }
   .glitch.active { animation: glitch 0.18s steps(3) 1; }
-  @keyframes glitch {
-    0%   { opacity: .25; transform: translateX(-3px); }
-    50%  { opacity: .1; transform: translateX(4px); }
-    100% { opacity: 0; transform: translateX(0); }
-  }
+  @keyframes glitch { 0% { opacity: .25; transform: translateX(-3px); } 50% { opacity: .1; transform: translateX(4px); } 100% { opacity: 0; transform: translateX(0); } }
 
   .dossier-wrap { display: none; }
   .dossier-wrap.visible { display: block; }
 
-  .history-block {
-    margin-bottom: 18px; padding: 12px 14px;
-    background: rgba(18,48,79,.22); border: 1px solid rgba(46,92,66,.45);
-    font-size: 13px; line-height: 1.8; color: var(--ink);
-  }
+  .history-block { margin-bottom: 18px; padding: 12px 14px; background: rgba(18,48,79,.22); border: 1px solid rgba(46,92,66,.45); font-size: 13px; line-height: 1.8; color: var(--ink); }
   .history-block b { color: var(--green-glow); }
 
   @media (max-width: 820px) {
@@ -763,31 +676,36 @@
 </head>
 <body>
 
-<!-- ================= BOOT-ЭКРАН: ГОРЫ В ПАЛИТРЕ САЙТА + ПАЛАТКА + ВЬЮГА ================= -->
+<!-- ================= BOOT-ЭКРАН: ГОРЫ + ПАЛАТКА + ВЬЮГА ================= -->
 <div class="boot" id="boot">
   <div class="sky"></div>
 
-  <!-- Пиксельные горы (высокие, детализированные) -->
-  <div class="mountains">
-    <svg viewBox="0 0 1200 600" preserveAspectRatio="none" shape-rendering="crispEdges">
-      <!-- Дальний план гор -->
-      <path d="M0,600 L0,300 L80,250 L120,280 L180,200 L220,240 L280,150 L340,220 L400,180 L460,260 L520,200 L580,280 L640,170 L700,240 L760,190 L820,270 L880,210 L940,300 L1000,230 L1060,290 L1120,210 L1200,280 L1200,600 Z" fill="#0a1a2e" stroke="#12304f" stroke-width="2"/>
-      <!-- Снег на дальних горах -->
-      <path d="M280,150 L300,180 L260,180 Z" fill="#bfe6d0" opacity=".4"/>
-      <path d="M640,170 L660,200 L620,200 Z" fill="#bfe6d0" opacity=".4"/>
-      <path d="M940,210 L960,240 L920,240 Z" fill="#bfe6d0" opacity=".4"/>
+  <!-- МАССИВНЫЕ ПИКСЕЛЬНЫЕ ГОРЫ (ПО РЕФЕРЕНСУ) -->
+  <div class="mountains" style="position:absolute; inset:0; z-index:1; image-rendering:pixelated;">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="none" shape-rendering="crispEdges" style="width:100%; height:100%; display:block;">
+      <!-- Слой 3 (Дальний, самый темный) -->
+      <path d="M0,600 L0,320 L60,280 L110,300 L160,240 L210,270 L270,200 L320,230 L380,180 L440,210 L500,160 L560,220 L620,190 L680,260 L740,210 L800,280 L860,230 L920,290 L980,240 L1040,280 L1100,210 L1160,260 L1200,230 L1200,600 Z" fill="#0a1510" stroke="#12304f" stroke-width="2"/>
+      <!-- Снежные шапки (Дальний) -->
+      <path d="M270,200 L290,230 L250,230 Z" fill="#2e5c42" opacity=".7"/>
+      <path d="M500,160 L520,190 L480,190 Z" fill="#2e5c42" opacity=".7"/>
+      <path d="M920,230 L940,260 L900,260 Z" fill="#2e5c42" opacity=".7"/>
 
-      <!-- Средний план гор -->
-      <path d="M0,600 L0,350 L60,300 L120,340 L180,260 L240,300 L300,210 L360,280 L420,240 L480,320 L540,260 L600,340 L660,230 L720,300 L780,250 L840,330 L900,270 L960,350 L1020,290 L1080,340 L1140,260 L1200,330 L1200,600 Z" fill="#0e1c16" stroke="#1d3a2a" stroke-width="2"/>
-      <path d="M300,210 L330,250 L270,250 Z" fill="#bfe6d0" opacity=".5"/>
-      <path d="M660,230 L690,270 L630,270 Z" fill="#bfe6d0" opacity=".5"/>
-      <path d="M1020,290 L1050,330 L990,330 Z" fill="#bfe6d0" opacity=".5"/>
+      <!-- Слой 2 (Средний) -->
+      <path d="M0,600 L0,400 L70,340 L140,380 L210,290 L280,330 L350,240 L420,300 L490,250 L560,330 L630,280 L700,350 L770,270 L840,340 L910,290 L980,380 L1050,320 L1120,360 L1200,300 L1200,600 Z" fill="#0e1c16" stroke="#1d3a2a" stroke-width="2"/>
+      <path d="M350,240 L380,290 L320,290 Z" fill="#4fae7a" opacity=".6"/>
+      <path d="M700,350 L730,400 L670,400 Z" fill="#4fae7a" opacity=".6"/>
+      <path d="M1050,320 L1080,360 L1020,360 Z" fill="#4fae7a" opacity=".6"/>
 
-      <!-- Передний план гор (массивный) -->
-      <path d="M0,600 L0,400 L80,350 L160,390 L240,300 L320,350 L400,270 L480,340 L560,280 L640,370 L720,310 L800,390 L880,330 L960,410 L1040,350 L1120,390 L1200,340 L1200,600 Z" fill="#10241a" stroke="#1d3a2a" stroke-width="3"/>
-      <path d="M400,270 L440,320 L360,320 Z" fill="#bfe6d0" opacity=".6"/>
-      <path d="M800,390 L830,430 L770,430 Z" fill="#bfe6d0" opacity=".6"/>
-      <path d="M240,300 L270,340 L210,340 Z" fill="#bfe6d0" opacity=".6"/>
+      <!-- Слой 1 (Передний, самый детальный) -->
+      <path d="M0,600 L0,450 L80,390 L160,430 L240,340 L320,390 L400,300 L480,380 L560,320 L640,400 L720,340 L800,420 L880,360 L960,440 L1040,380 L1120,420 L1200,360 L1200,600 Z" fill="#10241a" stroke="#2e5c42" stroke-width="3"/>
+      <!-- Глубокие тени на переднем плане -->
+      <path d="M240,340 L280,390 L200,390 Z" fill="#0c1911" opacity=".8"/>
+      <path d="M640,400 L680,450 L600,450 Z" fill="#0c1911" opacity=".8"/>
+      <path d="M960,440 L1000,490 L920,490 Z" fill="#0c1911" opacity=".8"/>
+      <!-- Снег на переднем плане -->
+      <path d="M400,300 L440,360 L360,360 Z" fill="#7fe0a8" opacity=".7"/>
+      <path d="M800,420 L840,480 L760,480 Z" fill="#7fe0a8" opacity=".7"/>
+      <path d="M1120,420 L1150,460 L1090,460 Z" fill="#7fe0a8" opacity=".7"/>
     </svg>
   </div>
 
@@ -808,46 +726,50 @@
     <div class="print p8"></div>
   </div>
 
-  <!-- Палатка (по референсу) -->
+  <!-- ПАЛАТКА (ПО 2-МУ РЕФЕРЕНСУ) -->
   <div class="tent">
-    <svg viewBox="0 0 300 210" preserveAspectRatio="none" shape-rendering="crispEdges">
-      <!-- Тень -->
-      <polygon points="40,190 260,190 240,200 60,200" fill="#060d09" opacity=".7"/>
+    <svg viewBox="0 0 280 200" preserveAspectRatio="none" shape-rendering="crispEdges">
+      <!-- Тень на снегу -->
+      <polygon points="20,185 260,185 230,200 50,200" fill="#060d09" opacity=".8"/>
       
-      <!-- Трава/снег у основания -->
-      <rect x="30" y="180" width="240" height="20" fill="#1d3a2a"/>
-      <rect x="35" y="185" width="230" height="15" fill="#2e5c42"/>
-      <rect x="40" y="190" width="220" height="10" fill="#1d3a2a"/>
+      <!-- Основание (снег/трава) -->
+      <rect x="15" y="180" width="250" height="20" fill="#1d3a2a"/>
+      <rect x="20" y="185" width="240" height="15" fill="#2e5c42"/>
+      <rect x="25" y="190" width="230" height="10" fill="#1d3a2a"/>
 
-      <!-- Задняя стенка палатки (тень) -->
-      <polygon points="150,30 240,180 60,180" fill="#1a3a2a" stroke="#0a1a1a" stroke-width="2"/>
+      <!-- Задняя тень палатки -->
+      <polygon points="140,20 240,180 40,180" fill="#0a1a1a" stroke="#060d09" stroke-width="2"/>
 
-      <!-- Передняя часть палатки (свет) -->
-      <polygon points="150,30 260,180 40,180" fill="#2e5c42" stroke="#1a3a2a" stroke-width="2"/>
+      <!-- Основное тело палатки (сине-зеленое) -->
+      <polygon points="140,20 250,180 30,180" fill="#2e5c42" stroke="#1d3a2a" stroke-width="2"/>
       
-      <!-- Скат палатки (верх) -->
-      <polygon points="150,30 210,90 90,90" fill="#4fae7a" stroke="#2e5c42" stroke-width="2"/>
+      <!-- Верхний скат (светлее) -->
+      <polygon points="140,20 200,85 80,85" fill="#4fae7a" stroke="#2e5c42" stroke-width="2"/>
       
-      <!-- Вход в палатку -->
-      <polygon points="150,70 180,180 120,180" fill="#0a1a1a" stroke="#1a3a2a" stroke-width="2"/>
-      <polygon points="150,90 170,170 130,170" fill="#060d09"/>
+      <!-- Вход (треугольная пазуха) -->
+      <polygon points="140,65 175,180 105,180" fill="#0a1a1a" stroke="#1d3a2a" stroke-width="2"/>
+      <polygon points="140,80 165,170 115,170" fill="#060d09"/>
 
-      <!-- Швы палатки -->
-      <line x1="150" y1="30" x2="150" y2="180" stroke="#2e5c42" stroke-width="2"/>
-      <line x1="150" y1="30" x2="260" y2="180" stroke="#4fae7a" stroke-width="2"/>
-      <line x1="150" y1="30" x2="40" y2="180" stroke="#4fae7a" stroke-width="2"/>
+      <!-- Швы и складки ткани -->
+      <line x1="140" y1="20" x2="140" y2="180" stroke="#1d3a2a" stroke-width="2"/>
+      <line x1="140" y1="20" x2="250" y2="180" stroke="#7fe0a8" stroke-width="2"/>
+      <line x1="140" y1="20" x2="30" y2="180" stroke="#7fe0a8" stroke-width="2"/>
       
+      <!-- Складки на ткани -->
+      <path d="M100,90 L120,140" stroke="#2e5c42" stroke-width="2" opacity=".6"/>
+      <path d="M180,90 L160,140" stroke="#2e5c42" stroke-width="2" opacity=".6"/>
+
       <!-- Снег на палатке -->
-      <polygon points="150,30 200,70 100,70" fill="#bfe6d0" opacity=".5"/>
-      <polygon points="150,30 180,60 120,60" fill="#bfe6d0" opacity=".4"/>
+      <polygon points="140,20 190,70 90,70" fill="#7fe0a8" opacity=".5"/>
+      <polygon points="140,20 170,55 110,55" fill="#7fe0a8" opacity=".4"/>
 
-      <!-- Колышки/растяжки -->
-      <line x1="40" y1="180" x2="20" y2="200" stroke="#1a3a2a" stroke-width="3"/>
-      <line x1="260" y1="180" x2="280" y2="200" stroke="#1a3a2a" stroke-width="3"/>
-      <line x1="150" y1="30" x2="150" y2="10" stroke="#1a3a2a" stroke-width="3"/>
+      <!-- Оттяжки и колышки -->
+      <line x1="30" y1="180" x2="10" y2="195" stroke="#1d3a2a" stroke-width="3"/>
+      <line x1="250" y1="180" x2="270" y2="195" stroke="#1d3a2a" stroke-width="3"/>
+      <line x1="140" y1="20" x2="140" y2="5" stroke="#1d3a2a" stroke-width="3"/>
       
-      <!-- Флаг наверху -->
-      <polygon points="150,10 170,15 150,25" fill="#ff4d4d"/>
+      <!-- Флажок на верхушке -->
+      <polygon points="140,5 160,10 140,20" fill="#ff4d4d"/>
     </svg>
   </div>
 
