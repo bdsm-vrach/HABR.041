@@ -88,21 +88,22 @@
     position: absolute;
     background: #7fc4ff;
     border-radius: 50%;
-    filter: blur(4px);
-    opacity: 0.25;
-    box-shadow: 0 0 40px rgba(63,127,191,.5);
+    filter: blur(6px);
+    opacity: 0.15;
+    box-shadow: 0 0 60px rgba(63,127,191,.5);
+    animation: floatCloud linear infinite;
   }
-  .boot .c1 { top: 10%; left: 10%; width: 250px; height: 70px; animation: floatCloud 45s linear infinite; }
-  .boot .c2 { top: 15%; left: 60%; width: 350px; height: 90px; animation: floatCloud 60s linear infinite reverse; }
-  .boot .c3 { top: 5%; left: 80%; width: 200px; height: 60px; animation: floatCloud 55s linear infinite; }
-  .boot .c4 { top: 25%; left: 30%; width: 300px; height: 80px; animation: floatCloud 70s linear infinite reverse; }
+  .boot .c1 { top: 10%; left: -20%; width: 300px; height: 80px; animation-duration: 45s; }
+  .boot .c2 { top: 15%; left: -30%; width: 400px; height: 100px; animation-duration: 60s; animation-delay: -10s; }
+  .boot .c3 { top: 5%; left: -15%; width: 250px; height: 70px; animation-duration: 55s; animation-delay: -25s; }
+  .boot .c4 { top: 25%; left: -40%; width: 350px; height: 90px; animation-duration: 70s; animation-delay: -5s; }
   
   @keyframes floatCloud {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-100vw); }
+    100% { transform: translateX(150vw); }
   }
 
-  /* Горы (Low-Poly, как на референсе) */
+  /* ГОРЫ (LOW-POLY) */
   .boot .mountains {
     position: absolute;
     left: 0; right: 0; bottom: 0;
