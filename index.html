@@ -75,12 +75,59 @@
     position: absolute; inset: 0;
     background:
       linear-gradient(180deg,
-        #060d09 0%,
-        #0a1a2e 20%,
-        #10241a 45%,
-        #0c1911 70%,
-        #060d09 100%);
+        #0a1a2e 0%,
+        #12304f 30%,
+        #10241a 60%,
+        #0c1911 100%);
     z-index: 0;
+  }
+
+  /* ================= ОБЛАКА (АНИМАЦИЯ) ================= */
+  .boot .clouds-container {
+    position: absolute; inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .boot .cloud {
+    position: absolute;
+    background: #7fc4ff;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.4;
+    box-shadow: inset -5px -5px 15px rgba(18,48,79,.8), 0 0 20px rgba(63,127,191,.4);
+  }
+  /* Многослойные облака (как на референсе) */
+  .boot .cloud-group {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: floatClouds linear infinite;
+  }
+  @keyframes floatClouds {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  /* Разные размеры и позиции облаков */
+  .boot .c1 { top: 10%; left: 10%; width: 200px; height: 60px; animation-duration: 40s; opacity: .3; }
+  .boot .c2 { top: 15%; left: 40%; width: 300px; height: 80px; animation-duration: 60s; opacity: .2; }
+  .boot .c3 { top: 5%; left: 70%; width: 150px; height: 50px; animation-duration: 50s; opacity: .4; }
+  .boot .c4 { top: 25%; left: 20%; width: 250px; height: 70px; animation-duration: 70s; opacity: .15; }
+  .boot .c5 { top: 20%; left: 80%; width: 180px; height: 55px; animation-duration: 45s; opacity: .35; }
+
+  /* Пиксельные острые горы (low-poly) */
+  .boot .mountains {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 65%;
+    z-index: 2;
+    image-rendering: pixelated;
+  }
+  .boot .mountains svg {
+    width: 100%; height: 100%; display: block;
+    shape-rendering: crispEdges;
+    image-rendering: pixelated;
   }
 
   /* Снежная земля */
@@ -91,7 +138,7 @@
     background: #0e1c16;
     border-top: 4px solid #2e5c42;
     box-shadow: inset 0 30px 50px rgba(6,13,9,.9);
-    z-index: 2;
+    z-index: 3;
   }
   
   /* Пиксельная детализация снега */
@@ -113,7 +160,7 @@
     bottom: 18%;
     background: #10241a;
     border-top: 3px solid #2e5c42;
-    z-index: 3;
+    z-index: 4;
     image-rendering: pixelated;
   }
   .boot .snowdrift.d1 { left: 0; width: 35%; height: 6%; border-radius: 0 80% 0 0 / 0 100% 0 0; }
@@ -121,7 +168,7 @@
 
   /* Красные следы на снегу */
   .boot .blood-trail {
-    position: absolute; left: 0; right: 0; bottom: 12%; height: 15%; z-index: 4; pointer-events: none;
+    position: absolute; left: 0; right: 0; bottom: 12%; height: 15%; z-index: 5; pointer-events: none;
   }
   .boot .blood-trail .print {
     position: absolute; width: 12px; height: 8px;
@@ -170,7 +217,7 @@
   /* ================= СНЕЖНАЯ ВЬЮГА ================= */
   .boot .blizzard {
     position: absolute; inset: 0;
-    z-index: 8;
+    z-index: 7;
     pointer-events: none;
     overflow: hidden;
   }
@@ -187,7 +234,7 @@
     100% { transform: translateY(110vh) translateX(-80px); opacity: .3; }
   }
 
-  /* CRT эффект и затемнение */
+  /* CRT эффект и УСИЛЕННОЕ затемнение (ВИНЬЕТКА) */
   .boot .crt-lines {
     position: absolute; inset: 0;
     background: repeating-linear-gradient(0deg, rgba(63,127,191,.08) 0 1px, transparent 1px 3px);
@@ -196,7 +243,7 @@
   
   .boot .vignette {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(6,13,9,.95) 100%);
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(6,13,9,.98) 100%);
     pointer-events: none; z-index: 29;
   }
 
@@ -686,32 +733,43 @@
 <div class="boot" id="boot">
   <div class="sky"></div>
 
-  <!-- МАССИВНЫЕ ГОРЫ (БЕЗ ОБВОДОК, С ГЛУБОКИМИ ТЕНЯМИ) -->
-  <div class="mountains" style="position:absolute; inset:0; z-index:1; image-rendering:pixelated;">
-    <svg viewBox="0 0 1200 600" preserveAspectRatio="none" shape-rendering="crispEdges" style="width:100%; height:100%; display:block;">
-      <!-- Слой 3 (Дальний) -->
-      <path d="M0,600 L0,320 L60,280 L110,300 L160,240 L210,270 L270,200 L320,230 L380,180 L440,210 L500,160 L560,220 L620,190 L680,260 L740,210 L800,280 L860,230 L920,290 L980,240 L1040,280 L1100,210 L1160,260 L1200,230 L1200,600 Z" fill="#0a1510" />
-      <!-- Снежные шапки (Дальний) -->
-      <path d="M270,200 L290,230 L250,230 Z" fill="#2e5c42" opacity=".8"/>
-      <path d="M500,160 L520,190 L480,190 Z" fill="#2e5c42" opacity=".8"/>
-      <path d="M920,230 L940,260 L900,260 Z" fill="#2e5c42" opacity=".8"/>
+  <!-- ОБЛАКА (АНИМАЦИЯ) -->
+  <div class="clouds-container">
+    <div class="cloud c1" style="left:10%; top:15%;"></div>
+    <div class="cloud c2" style="left:40%; top:25%;"></div>
+    <div class="cloud c3" style="left:70%; top:10%;"></div>
+    <div class="cloud c4" style="left:20%; top:35%;"></div>
+    <div class="cloud c5" style="left:80%; top:20%;"></div>
+  </div>
 
-      <!-- Слой 2 (Средний) -->
-      <path d="M0,600 L0,400 L70,340 L140,380 L210,290 L280,330 L350,240 L420,300 L490,250 L560,330 L630,280 L700,350 L770,270 L840,340 L910,290 L980,380 L1050,320 L1120,360 L1200,300 L1200,600 Z" fill="#0e1c16" />
-      <path d="M350,240 L380,290 L320,290 Z" fill="#4fae7a" opacity=".6"/>
-      <path d="M700,350 L730,400 L670,400 Z" fill="#4fae7a" opacity=".6"/>
-      <path d="M1050,320 L1080,360 L1020,360 Z" fill="#4fae7a" opacity=".6"/>
+  <!-- ПИКСЕЛЬНЫЕ ОСТРЫЕ ГОРЫ (LOW-POLY) -->
+  <div class="mountains">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="none" shape-rendering="crispEdges">
+      <!-- Задний план гор (светло-синий) -->
+      <path d="M0,600 L0,300 L80,250 L120,280 L180,200 L220,240 L280,150 L340,220 L400,180 L460,260 L520,200 L580,280 L640,170 L700,240 L760,190 L820,270 L880,210 L940,300 L1000,230 L1060,290 L1120,210 L1200,280 L1200,600 Z" fill="#12304f" />
+      <!-- Тени на заднем плане -->
+      <path d="M280,150 L340,220 L280,220 Z" fill="#0a1a2e" />
+      <path d="M640,170 L700,240 L640,240 Z" fill="#0a1a2e" />
+      <path d="M940,210 L1000,230 L940,230 Z" fill="#0a1a2e" />
 
-      <!-- Слой 1 (Передний, детальный) -->
-      <path d="M0,600 L0,450 L80,390 L160,430 L240,340 L320,390 L400,300 L480,380 L560,320 L640,400 L720,340 L800,420 L880,360 L960,440 L1040,380 L1120,420 L1200,360 L1200,600 Z" fill="#10241a" />
-      <!-- Глубокие тени на переднем плане -->
-      <path d="M240,340 L280,390 L200,390 Z" fill="#0c1911" opacity=".9"/>
-      <path d="M640,400 L680,450 L600,450 Z" fill="#0c1911" opacity=".9"/>
-      <path d="M960,440 L1000,490 L920,490 Z" fill="#0c1911" opacity=".9"/>
-      <!-- Снег на переднем плане -->
-      <path d="M400,300 L440,360 L360,360 Z" fill="#7fe0a8" opacity=".8"/>
-      <path d="M800,420 L840,480 L760,480 Z" fill="#7fe0a8" opacity=".8"/>
-      <path d="M1120,420 L1150,460 L1090,460 Z" fill="#7fe0a8" opacity=".8"/>
+      <!-- Средний план гор (тёмно-зелёный) -->
+      <path d="M0,600 L0,350 L60,300 L120,340 L180,260 L240,300 L300,210 L360,280 L420,240 L480,320 L540,260 L600,340 L660,230 L720,300 L780,250 L840,330 L900,270 L960,350 L1020,290 L1080,340 L1140,260 L1200,330 L1200,600 Z" fill="#1d3a2a" />
+      <!-- Светлые грани среднего плана -->
+      <path d="M180,260 L240,300 L180,300 Z" fill="#2e5c42" />
+      <path d="M420,240 L480,320 L420,320 Z" fill="#2e5c42" />
+      <path d="M780,250 L840,330 L780,330 Z" fill="#2e5c42" />
+      <path d="M1140,260 L1200,330 L1140,330 Z" fill="#2e5c42" />
+
+      <!-- Передний план гор (глубокий зелёный) -->
+      <path d="M0,600 L0,420 L80,370 L160,410 L240,330 L320,380 L400,290 L480,360 L560,310 L640,390 L720,340 L800,420 L880,360 L960,440 L1040,380 L1120,420 L1200,370 L1200,600 Z" fill="#0c1911" />
+      <!-- Яркие световые грани переднего плана -->
+      <path d="M240,330 L320,380 L240,380 Z" fill="#4fae7a" opacity=".4"/>
+      <path d="M560,310 L640,390 L560,390 Z" fill="#4fae7a" opacity=".4"/>
+      <path d="M880,360 L960,440 L880,440 Z" fill="#4fae7a" opacity=".4"/>
+      
+      <!-- Снежные пики на переднем плане -->
+      <path d="M400,290 L440,340 L360,340 Z" fill="#7fe0a8" opacity=".8"/>
+      <path d="M800,420 L830,460 L770,460 Z" fill="#7fe0a8" opacity=".8"/>
     </svg>
   </div>
 
@@ -732,49 +790,28 @@
     <div class="print p8"></div>
   </div>
 
-  <!-- ПАЛАТКА (увеличенная, детальная) -->
+  <!-- ПАЛАТКА -->
   <div class="tent">
     <svg viewBox="0 0 340 240" preserveAspectRatio="none" shape-rendering="crispEdges">
-      <!-- Тень на снегу -->
       <polygon points="20,225 320,225 280,240 60,240" fill="#060d09" opacity=".9"/>
-      
-      <!-- Основание (снег) -->
       <rect x="15" y="220" width="310" height="20" fill="#1d3a2a"/>
       <rect x="20" y="225" width="300" height="15" fill="#2e5c42"/>
       <rect x="25" y="230" width="290" height="10" fill="#1d3a2a"/>
-
-      <!-- Задняя тень палатки -->
       <polygon points="170,30 300,220 40,220" fill="#0a1a1a" stroke="#060d09" stroke-width="3"/>
-
-      <!-- Основное тело палатки -->
       <polygon points="170,30 310,220 30,220" fill="#2e5c42" stroke="#1d3a2a" stroke-width="3"/>
-      
-      <!-- Верхний скат (светлее) -->
       <polygon points="170,30 240,105 100,105" fill="#4fae7a" stroke="#2e5c42" stroke-width="3"/>
-      
-      <!-- Вход (треугольный) -->
       <polygon points="170,80 215,220 125,220" fill="#0a1a1a" stroke="#1d3a2a" stroke-width="3"/>
       <polygon points="170,100 200,200 140,200" fill="#060d09"/>
-
-      <!-- Швы и складки ткани -->
       <line x1="170" y1="30" x2="170" y2="220" stroke="#1d3a2a" stroke-width="3"/>
       <line x1="170" y1="30" x2="310" y2="220" stroke="#7fe0a8" stroke-width="2"/>
       <line x1="170" y1="30" x2="30" y2="220" stroke="#7fe0a8" stroke-width="2"/>
-      
-      <!-- Складки на ткани -->
       <path d="M110,110 L140,170" stroke="#2e5c42" stroke-width="3" opacity=".7"/>
       <path d="M230,110 L200,170" stroke="#2e5c42" stroke-width="3" opacity=".7"/>
-
-      <!-- Снег на палатке -->
       <polygon points="170,30 230,85 110,85" fill="#7fe0a8" opacity=".6"/>
       <polygon points="170,30 200,65 140,65" fill="#7fe0a8" opacity=".5"/>
-
-      <!-- Оттяжки и колышки -->
       <line x1="30" y1="220" x2="10" y2="240" stroke="#1d3a2a" stroke-width="4"/>
       <line x1="310" y1="220" x2="330" y2="240" stroke="#1d3a2a" stroke-width="4"/>
       <line x1="170" y1="30" x2="170" y2="10" stroke="#1d3a2a" stroke-width="4"/>
-      
-      <!-- Флажок на верхушке -->
       <polygon points="170,10 195,18 170,30" fill="#ff4d4d"/>
     </svg>
   </div>
@@ -782,7 +819,7 @@
   <!-- Снежная вьюга -->
   <div class="blizzard" id="blizzard"></div>
 
-  <!-- CRT линии и затемнение (ВИНЬЕТКА) -->
+  <!-- CRT линии и УСИЛЕННОЕ затемнение -->
   <div class="crt-lines"></div>
   <div class="vignette"></div>
 
