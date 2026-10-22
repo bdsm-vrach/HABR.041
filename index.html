@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -64,197 +63,261 @@
     92% { opacity: .75; }
   }
 
-  /* ================= BOOT: ПАЛАТА ================= */
+  /* ================= BOOT: ПИКСЕЛЬ-АРТ ПАЛАТА ================= */
   .boot {
     position: fixed; inset: 0; z-index: 100;
-    background: radial-gradient(ellipse at 50% 40%, #10241a 0%, #0c1911 45%, #060d09 100%);
+    background: #0c1911;
     overflow: hidden;
     transition: opacity .8s ease, transform .8s ease;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
   .boot.done { opacity: 0; transform: scale(1.04); pointer-events: none; }
 
-  /* стена палаты */
+  /* пиксельная стена палаты — крупные блоки */
   .boot .wall {
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(18,48,79,.35) 0%, rgba(12,25,17,.2) 35%, rgba(6,13,9,.9) 100%),
-      repeating-linear-gradient(90deg, rgba(29,58,42,.35) 0 60px, rgba(12,25,17,.35) 60px 62px);
+      repeating-linear-gradient(0deg,
+        #0e1c16 0 16px,
+        #10241a 16px 18px,
+        #0e1c16 18px 34px,
+        #0a1510 34px 36px);
+    z-index: 0;
+  }
+  .boot .wall::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg,
+        transparent 0 62px,
+        #060d09 62px 64px);
     z-index: 0;
   }
   .boot .wall::after {
     content: "";
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 35%, transparent 30%, rgba(0,0,0,.75) 100%);
-    pointer-events: none;
+    background: linear-gradient(180deg, rgba(18,48,79,.45) 0%, rgba(12,25,17,.15) 40%, rgba(6,13,9,.9) 100%);
+    z-index: 1;
   }
 
-  /* окно с колышущейся шторой */
+  /* пиксельное окно */
   .boot .window {
     position: absolute;
     left: 6%; top: 12%;
     width: 26%; height: 42%;
     background:
-      linear-gradient(180deg, rgba(63,127,191,.28) 0%, rgba(18,48,79,.35) 60%, rgba(6,13,9,.85) 100%);
-    border: 3px solid #1d3a2a;
-    box-shadow: inset 0 0 40px rgba(63,127,191,.35), 0 0 30px rgba(18,48,79,.4);
+      repeating-linear-gradient(0deg,
+        #12304f 0 8px,
+        #0f2843 8px 16px,
+        #0a1a2e 16px 24px);
+    border: 8px solid #1d3a2a;
+    box-shadow:
+      inset 0 0 0 4px #060d09,
+      inset 0 0 60px rgba(63,127,191,.5);
     z-index: 2;
     overflow: hidden;
+    image-rendering: pixelated;
   }
   .boot .window::before {
     content: "";
     position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 3px; background: #1d3a2a;
-    box-shadow: 0 0 8px rgba(79,174,122,.4);
+    width: 8px; background: #1d3a2a;
     transform: translateX(-50%);
+    z-index: 4;
+    box-shadow: 0 0 0 2px #060d09;
   }
   .boot .window::after {
     content: "";
     position: absolute; left: 0; right: 0; top: 50%;
-    height: 3px; background: #1d3a2a;
-    box-shadow: 0 0 8px rgba(79,174,122,.4);
+    height: 8px; background: #1d3a2a;
+    z-index: 4;
+    box-shadow: 0 0 0 2px #060d09;
   }
+
+  /* пиксельные шторы — блочные полосы */
   .boot .curtain {
     position: absolute;
     top: 0; bottom: 0;
     width: 46%;
     background:
       repeating-linear-gradient(90deg,
-        rgba(29,58,42,.95) 0 10px,
-        rgba(46,92,66,.9) 10px 18px,
-        rgba(18,48,79,.85) 18px 26px);
-    filter: blur(.4px);
-    z-index: 3;
+        #1d3a2a 0 8px,
+        #2e5c42 8px 16px,
+        #12304f 16px 24px,
+        #1d3a2a 24px 32px);
+    z-index: 5;
     transform-origin: top center;
-    box-shadow: inset -8px 0 20px rgba(0,0,0,.55);
+    box-shadow: inset -8px 0 0 rgba(0,0,0,.35);
+    image-rendering: pixelated;
   }
   .boot .curtain.left {
-    left: -2%;
-    animation: curtainSwayL 7s ease-in-out infinite;
+    left: 0;
+    animation: curtainSwayL 7s steps(8) infinite;
   }
   .boot .curtain.right {
-    right: -2%;
-    animation: curtainSwayR 8.5s ease-in-out infinite;
+    right: 0;
+    animation: curtainSwayR 8.5s steps(8) infinite;
   }
+  /* пиксельная «рвань» по краю штор */
+  .boot .curtain::after {
+    content: "";
+    position: absolute; top: 0; bottom: 0; width: 8px;
+    background: repeating-linear-gradient(0deg,
+      #060d09 0 8px,
+      transparent 8px 16px);
+    image-rendering: pixelated;
+  }
+  .boot .curtain.left::after { right: -8px; }
+  .boot .curtain.right::after { left: -8px; }
+
   @keyframes curtainSwayL {
-    0%, 100% { transform: skewX(0deg) translateX(0); }
-    25% { transform: skewX(1.6deg) translateX(4px); }
-    50% { transform: skewX(-0.8deg) translateX(-2px); }
-    75% { transform: skewX(1.2deg) translateX(3px); }
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(4px); }
+    50%  { transform: translateX(-2px); }
+    75%  { transform: translateX(3px); }
+    100% { transform: translateX(0); }
   }
   @keyframes curtainSwayR {
-    0%, 100% { transform: skewX(0deg) translateX(0); }
-    30% { transform: skewX(-1.8deg) translateX(-5px); }
-    60% { transform: skewX(0.9deg) translateX(3px); }
+    0%   { transform: translateX(0); }
+    30%  { transform: translateX(-5px); }
+    60%  { transform: translateX(3px); }
+    100% { transform: translateX(0); }
   }
 
-  /* койка */
+  /* пиксельная койка */
   .boot .bed {
     position: absolute;
-    left: 18%; right: 18%; bottom: 0;
+    left: 16%; right: 16%; bottom: 0;
     height: 30%;
     background:
-      linear-gradient(180deg, rgba(18,48,79,.6) 0%, rgba(12,25,17,.95) 40%, #060d09 100%);
-    border-top: 4px solid #2e5c42;
-    box-shadow: 0 -10px 40px rgba(29,58,42,.6), inset 0 10px 30px rgba(0,0,0,.6);
+      repeating-linear-gradient(90deg,
+        #0a1a2e 0 16px,
+        #0e2438 16px 32px);
+    border-top: 8px solid #2e5c42;
+    box-shadow:
+      0 -8px 0 #1d3a2a,
+      0 -16px 0 rgba(18,48,79,.6);
     z-index: 4;
-    border-radius: 6px 6px 0 0;
+    image-rendering: pixelated;
   }
   .boot .bed::before {
     content: "";
-    position: absolute; left: 8%; right: 8%; top: 18%; height: 34%;
+    position: absolute; left: 8%; right: 8%; top: 18%; height: 36%;
     background:
-      repeating-linear-gradient(90deg, rgba(127,224,168,.12) 0 6px, transparent 6px 14px);
-    border: 1px solid rgba(79,174,122,.4);
-    border-radius: 4px;
-    box-shadow: inset 0 0 20px rgba(18,48,79,.6);
+      repeating-linear-gradient(0deg,
+        #12304f 0 8px,
+        #0f2843 8px 16px,
+        #0a1a2e 16px 24px);
+    border: 4px solid #2e5c42;
+    box-shadow: inset 0 0 0 4px #060d09;
+    image-rendering: pixelated;
   }
   .boot .bed::after {
     content: "";
-    position: absolute; left: 50%; top: -46px; transform: translateX(-50%);
-    width: 34%; height: 60px;
-    background: linear-gradient(180deg, rgba(18,48,79,.55), rgba(12,25,17,.2));
-    border: 2px solid #2e5c42;
-    border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
-    box-shadow: inset 0 0 20px rgba(63,127,191,.35);
+    position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
+    width: 30%; height: 60px;
+    background:
+      repeating-linear-gradient(90deg,
+        #1d3a2a 0 8px,
+        #12304f 8px 16px);
+    border: 4px solid #2e5c42;
+    box-shadow: inset 0 0 0 4px #060d09;
+    image-rendering: pixelated;
   }
 
-  /* тумбочка + кружка чая с дымом */
+  /* пиксельная тумбочка */
   .boot .nightstand {
     position: absolute;
-    right: 9%; bottom: 6%;
+    right: 8%; bottom: 6%;
     width: 16%; height: 24%;
-    background: linear-gradient(180deg, #12304f 0%, #0a1a2e 60%, #060d09 100%);
-    border: 3px solid #2e5c42;
-    border-radius: 4px;
-    box-shadow: inset 0 0 30px rgba(0,0,0,.6), 0 0 24px rgba(18,48,79,.5);
+    background:
+      repeating-linear-gradient(0deg,
+        #12304f 0 8px,
+        #0f2843 8px 16px,
+        #0a1a2e 16px 24px);
+    border: 6px solid #2e5c42;
+    box-shadow:
+      inset 0 0 0 4px #060d09,
+      0 0 0 4px rgba(18,48,79,.4);
     z-index: 6;
+    image-rendering: pixelated;
   }
   .boot .nightstand::before {
     content: "";
-    position: absolute; left: 8%; right: 8%; top: 12%; height: 2px;
+    position: absolute; left: 8%; right: 8%; top: 16%; height: 4px;
     background: #2e5c42;
-    box-shadow: 0 22px 0 #2e5c42, 0 44px 0 #2e5c42;
-    opacity: .7;
+    box-shadow: 0 20px 0 #2e5c42, 0 40px 0 #2e5c42;
+    image-rendering: pixelated;
   }
+
+  /* пиксельная кружка чая с дымом */
   .boot .tea {
     position: absolute;
-    right: 40%; bottom: 100%; margin-bottom: 0;
-    width: 46px; height: 40px;
+    right: 38%; bottom: 100%;
+    width: 48px; height: 44px;
     z-index: 8;
+    image-rendering: pixelated;
   }
   .boot .tea .cup {
     position: absolute; left: 0; bottom: 0;
-    width: 34px; height: 26px;
-    background: linear-gradient(180deg, #2e5c42, #12304f);
-    border: 2px solid #7fe0a8;
-    border-radius: 3px 3px 10px 10px;
-    box-shadow: 0 0 12px rgba(127,224,168,.45);
+    width: 32px; height: 24px;
+    background: #2e5c42;
+    border: 4px solid #7fe0a8;
+    box-shadow: inset 0 0 0 4px #12304f;
+    image-rendering: pixelated;
   }
   .boot .tea .handle {
-    position: absolute; right: 0; bottom: 6px;
-    width: 12px; height: 14px;
-    border: 2px solid #7fe0a8;
+    position: absolute; right: 0; bottom: 4px;
+    width: 12px; height: 12px;
+    border: 4px solid #7fe0a8;
     border-left: none;
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 0 10px rgba(127,224,168,.45);
+    box-shadow: 2px 0 0 #12304f inset;
+    image-rendering: pixelated;
   }
   .boot .tea .steam {
     position: absolute;
     bottom: 28px; left: 8px;
-    width: 6px; height: 22px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 50% 100%, rgba(191,230,208,.7) 0%, rgba(127,196,255,.35) 40%, transparent 75%);
-    filter: blur(3px);
+    width: 8px; height: 8px;
+    background: #7fe0a8;
+    box-shadow: 0 0 0 2px rgba(127,224,168,.3);
     opacity: 0;
+    image-rendering: pixelated;
   }
-  .boot .tea .steam.s-a { animation: steamRise 3.2s ease-in-out infinite; }
-  .boot .tea .steam.s-b { left: 16px; animation: steamRise 3.8s ease-in-out .9s infinite; }
-  .boot .tea .steam.s-c { left: 12px; animation: steamRise 4.4s ease-in-out 1.8s infinite; }
+  .boot .tea .steam.s-a { animation: steamRise 3.2s steps(6) infinite; }
+  .boot .tea .steam.s-b { left: 16px; animation: steamRise 3.8s steps(6) .9s infinite; }
+  .boot .tea .steam.s-c { left: 12px; animation: steamRise 4.4s steps(6) 1.8s infinite; }
   @keyframes steamRise {
-    0% { opacity: 0; transform: translateY(0) translateX(0) scaleX(1); }
-    20% { opacity: .8; }
-    60% { opacity: .5; transform: translateY(-22px) translateX(-4px) scaleX(1.4); }
-    100% { opacity: 0; transform: translateY(-46px) translateX(6px) scaleX(1.9); }
+    0%   { opacity: 0; transform: translate(0, 0) scale(1); }
+    20%  { opacity: 1; }
+    60%  { opacity: .6; transform: translate(-4px, -24px) scale(1); }
+    100% { opacity: 0; transform: translate(4px, -48px) scale(1); }
   }
 
-  /* кардиомонитор */
+  /* пиксельный кардиомонитор */
   .boot .monitor {
     position: absolute;
     left: 7%; bottom: 8%;
     width: 25%; height: 24%;
     background: #07100b;
-    border: 4px solid #2e5c42;
-    border-radius: 10px;
-    box-shadow: inset 0 0 40px rgba(0,0,0,.8), 0 0 30px rgba(29,58,42,.7);
+    border: 8px solid #2e5c42;
+    box-shadow:
+      inset 0 0 0 4px #060d09,
+      0 0 0 4px rgba(18,48,79,.4);
     z-index: 7;
     overflow: hidden;
+    image-rendering: pixelated;
   }
   .boot .monitor::before {
     content: "";
     position: absolute; inset: 0;
-    background: repeating-linear-gradient(0deg, rgba(79,174,122,.08) 0 1px, transparent 1px 4px);
+    background:
+      repeating-linear-gradient(0deg,
+        rgba(79,174,122,.12) 0 4px,
+        transparent 4px 8px);
     pointer-events: none;
     z-index: 3;
+    image-rendering: pixelated;
   }
   .boot .monitor .ecg {
     position: absolute; left: 0; right: 0; top: 50%;
@@ -264,12 +327,13 @@
   .boot .monitor .ecg svg { width: 100%; height: 100%; display: block; }
   .boot .monitor .ecg-line {
     stroke: #7fe0a8;
-    stroke-width: 2;
+    stroke-width: 4;
     fill: none;
-    filter: drop-shadow(0 0 4px rgba(127,224,168,.9));
     stroke-dasharray: 1200;
     stroke-dashoffset: 1200;
-    animation: ecgDraw 3.2s linear infinite;
+    animation: ecgDraw 3.2s steps(24) infinite;
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
   }
   @keyframes ecgDraw {
     0% { stroke-dashoffset: 1200; }
@@ -277,41 +341,80 @@
   }
   .boot .monitor .bpm {
     position: absolute;
-    top: 6px; right: 8px;
-    font-size: 11px; letter-spacing: 2px;
+    top: 8px; right: 10px;
+    font-size: 12px; letter-spacing: 2px;
     color: #7fe0a8;
-    text-shadow: 0 0 8px rgba(127,224,168,.9);
+    text-shadow: none;
     z-index: 4;
     animation: bpmBlink 1.2s steps(2) infinite;
   }
-  @keyframes bpmBlink { 50% { opacity: .35; } }
+  @keyframes bpmBlink { 50% { opacity: .3; } }
   .boot .monitor .bpm small { color: #7fc4ff; font-size: 8px; }
   .boot .monitor .lead {
-    position: absolute; left: 8px; top: 6px;
-    font-size: 9px; letter-spacing: 2px; color: #3f7fbf;
+    position: absolute; left: 10px; top: 8px;
+    font-size: 10px; letter-spacing: 2px; color: #3f7fbf;
     z-index: 4;
   }
 
-  /* лампа дневного света */
+  /* пиксельная лампа дневного света */
   .boot .lamp {
     position: absolute; left: 50%; top: 4%;
     transform: translateX(-50%);
-    width: 34%; height: 10px;
-    background: linear-gradient(180deg, #7fe0a8, #2e5c42);
-    border-radius: 4px;
-    box-shadow: 0 0 30px rgba(127,224,168,.7), 0 0 70px rgba(63,127,191,.4);
+    width: 34%; height: 12px;
+    background:
+      repeating-linear-gradient(90deg,
+        #7fe0a8 0 8px,
+        #4fae7a 8px 16px);
+    border: 4px solid #2e5c42;
+    box-shadow:
+      0 0 0 4px #060d09,
+      0 0 40px rgba(127,224,168,.7);
     z-index: 5;
-    animation: lampFlicker 5s infinite;
+    animation: lampFlicker 5s steps(10) infinite;
+    image-rendering: pixelated;
   }
   @keyframes lampFlicker {
-    0%, 100% { opacity: .9; }
-    46% { opacity: .95; }
-    47% { opacity: .3; }
-    48% { opacity: .95; }
-    90% { opacity: .7; }
+    0%, 100% { opacity: 1; }
+    46% { opacity: 1; }
+    47% { opacity: .35; }
+    48% { opacity: 1; }
+    90% { opacity: .8; }
   }
 
-  /* каркас ЭВМ-экрана */
+  /* пиксельные знаки по краям загрузочного экрана */
+  .boot .edge-marks {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 56px;
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    image-rendering: pixelated;
+  }
+  .boot .edge-marks.left { left: 0; }
+  .boot .edge-marks.right { right: 0; }
+  .boot .edge-mark {
+    width: 36px; height: 36px;
+    border: 4px solid #2e5c42;
+    background: #0a1a2e;
+    box-shadow: inset 0 0 0 4px #060d09;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7fe0a8;
+    font-size: 18px;
+    line-height: 1;
+    font-family: "Courier New", monospace;
+    animation: edgeBlink 2.4s steps(2) infinite;
+    image-rendering: pixelated;
+  }
+  .boot .edge-mark:nth-child(2n) { animation-delay: .6s; color: #7fc4ff; border-color: #3f7fbf; }
+  .boot .edge-mark:nth-child(3n) { animation-delay: 1.2s; color: #4fae7a; }
+  @keyframes edgeBlink { 50% { opacity: .35; } }
+
   .boot .crt-lines {
     position: absolute; inset: 0;
     background: repeating-linear-gradient(0deg, rgba(63,127,191,.08) 0 1px, transparent 1px 3px);
@@ -436,6 +539,38 @@
     pointer-events: none; z-index: 11;
   }
 
+  /* знаки по краям экрана досье */
+  .screen-edge {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 40px;
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .screen-edge.left { left: 6px; }
+  .screen-edge.right { right: 6px; }
+  .screen-edge .mark {
+    width: 26px; height: 26px;
+    border: 2px solid var(--green-soft);
+    background: rgba(10,26,46,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-glow);
+    font-size: 13px;
+    line-height: 1;
+    font-family: "Courier New", monospace;
+    box-shadow: inset 0 0 0 2px rgba(6,13,9,.7);
+    opacity: .75;
+  }
+  .screen-edge .mark.blue { color: var(--blue-glow); border-color: var(--blue-bright); }
+  .screen-edge .mark.dim { color: var(--ink-dim); border-color: var(--ink-faint); }
+  .screen-edge .mark.pulse { animation: blink 2.6s steps(2) infinite; }
+
   /* имитация скруглённого экрана ЭВМ */
   .screen {
     position: relative;
@@ -455,7 +590,6 @@
     text-shadow: var(--glow);
     animation: bootScreen 1.2s ease-out;
   }
-  /* скруглённые «уголки» ЭЛТ */
   .screen::before,
   .screen::after {
     content: "";
@@ -1259,6 +1393,10 @@
     .boot .window { width: 40%; height: 30%; }
     .boot .monitor { width: 38%; height: 18%; }
     .boot .nightstand { width: 26%; height: 18%; }
+    .boot .edge-marks { width: 34px; }
+    .boot .edge-mark { width: 24px; height: 24px; font-size: 12px; border-width: 3px; }
+    .screen-edge { width: 22px; }
+    .screen-edge .mark { width: 18px; height: 18px; font-size: 9px; border-width: 1px; }
     .grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }
     .portrait { height: 200px; width: 150px; margin: 0 auto; aspect-ratio: auto; max-height: none; }
     .data { overflow: visible; padding-right: 0; }
@@ -1276,23 +1414,23 @@
 </head>
 <body>
 
-<!-- ================= BOOT-ЭКРАН: ПАЛАТА ================= -->
+<!-- ================= BOOT-ЭКРАН: ПИКСЕЛЬ-АРТ ПАЛАТА ================= -->
 <div class="boot" id="boot">
   <div class="wall"></div>
 
-  <!-- окно с колышущимися шторами -->
+  <!-- окно с колышущимися пиксельными шторами -->
   <div class="window">
     <div class="curtain left"></div>
     <div class="curtain right"></div>
   </div>
 
-  <!-- лампа -->
+  <!-- пиксельная лампа -->
   <div class="lamp"></div>
 
-  <!-- койка -->
+  <!-- пиксельная койка -->
   <div class="bed"></div>
 
-  <!-- тумбочка и кружка чая с дымом -->
+  <!-- пиксельная тумбочка и кружка чая с дымом -->
   <div class="nightstand">
     <div class="tea">
       <div class="cup"></div>
@@ -1303,15 +1441,37 @@
     </div>
   </div>
 
-  <!-- кардиомонитор -->
+  <!-- пиксельный кардиомонитор -->
   <div class="monitor">
     <div class="lead">LEAD II</div>
     <div class="bpm">78 <small>BPM</small></div>
     <div class="ecg">
-      <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+      <svg viewBox="0 0 400 100" preserveAspectRatio="none" shape-rendering="crispEdges">
         <path class="ecg-line" d="M0,50 L30,50 L40,50 L45,20 L50,80 L55,50 L80,50 L90,50 L95,35 L100,65 L105,50 L140,50 L150,50 L155,15 L160,85 L165,50 L200,50 L210,50 L215,30 L220,70 L225,50 L260,50 L270,50 L275,20 L280,80 L285,50 L320,50 L330,50 L335,35 L340,65 L345,50 L400,50" />
       </svg>
     </div>
+  </div>
+
+  <!-- знаки по краям загрузочного экрана -->
+  <div class="edge-marks left">
+    <div class="edge-mark">✚</div>
+    <div class="edge-mark">♥</div>
+    <div class="edge-mark">⚕</div>
+    <div class="edge-mark">◈</div>
+    <div class="edge-mark">✚</div>
+    <div class="edge-mark">♥</div>
+    <div class="edge-mark">⚕</div>
+    <div class="edge-mark">◈</div>
+  </div>
+  <div class="edge-marks right">
+    <div class="edge-mark">◈</div>
+    <div class="edge-mark">⚕</div>
+    <div class="edge-mark">♥</div>
+    <div class="edge-mark">✚</div>
+    <div class="edge-mark">◈</div>
+    <div class="edge-mark">⚕</div>
+    <div class="edge-mark">♥</div>
+    <div class="edge-mark">✚</div>
   </div>
 
   <div class="crt-lines"></div>
@@ -1340,6 +1500,28 @@
     <div class="glitch" id="glitch"></div>
 
     <div class="screen">
+      <!-- знаки по краям экрана досье -->
+      <div class="screen-edge left">
+        <div class="mark">✚</div>
+        <div class="mark blue">♥</div>
+        <div class="mark dim">⚕</div>
+        <div class="mark pulse">◈</div>
+        <div class="mark">✚</div>
+        <div class="mark blue">♥</div>
+        <div class="mark dim">⚕</div>
+        <div class="mark pulse">◈</div>
+      </div>
+      <div class="screen-edge right">
+        <div class="mark pulse">◈</div>
+        <div class="mark dim">⚕</div>
+        <div class="mark blue">♥</div>
+        <div class="mark">✚</div>
+        <div class="mark pulse">◈</div>
+        <div class="mark dim">⚕</div>
+        <div class="mark blue">♥</div>
+        <div class="mark">✚</div>
+      </div>
+
       <div class="topbar">
         <span>EINHEIT-OS v3.1 // МОДУЛЬ-ДАТЕНБАНК // МЕДИЦИНСКИЙ ОТДЕЛ</span>
         <span>ОПЕРАТОР: <span class="blink">█</span></span>
@@ -1366,7 +1548,7 @@
               <span class="corner tr"></span>
               <span class="corner bl"></span>
               <span class="corner br"></span>
-              <img src="habr.png" alt="HABR.041">
+              <img src="HABRp.png" alt="HABR.041">
               <div class="label">HABR.041 // АКТИВЕН</div>
             </div>
 
@@ -1441,14 +1623,33 @@
                     <span class="name">Анализатор здоровья</span>
                   </div>
 
+                  <!-- НОВАЯ ИКОНКА ДЕФИБРИЛЛЯТОРА -->
                   <div class="item" data-item="defib">
                     <span class="num">02</span>
                     <span class="icon">
                       <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
-                        <rect x="2" y="5" width="12" height="8" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
-                        <rect x="4" y="3" width="2" height="2" fill="#3f7fbf"/>
-                        <rect x="10" y="3" width="2" height="2" fill="#3f7fbf"/>
-                        <path d="M7,7 L5,9 L7,9 L6,12 L9,8 L7,8 Z" fill="#7fe0a8"/>
+                        <!-- корпус аппарата -->
+                        <rect x="2" y="8" width="10" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <!-- экран -->
+                        <rect x="3" y="9" width="5" height="3" fill="#1d3a2a"/>
+                        <!-- волна на экране -->
+                        <path d="M3.5,10.5 L4.5,10.5 L5,9.8 L5.5,11.2 L6,10.5 L7.5,10.5" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <!-- кнопки -->
+                        <rect x="9" y="9.5" width="1" height="1" fill="#4fae7a"/>
+                        <rect x="10.5" y="9.5" width="1" height="1" fill="#3f7fbf"/>
+                        <!-- ручка/держатель -->
+                        <rect x="11" y="7" width="2" height="1" fill="#2e5c42"/>
+                        <rect x="12" y="4" width="1" height="3" fill="#bfe6d0"/>
+                        <!-- электроды-лопасти -->
+                        <rect x="3" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>
+                        <rect x="8" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>
+                        <rect x="3.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>
+                        <rect x="8.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>
+                        <!-- провода -->
+                        <path d="M4.5,5 L4.5,6 L5,7 L5,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <path d="M9.5,5 L9.5,6 L9,7 L9,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <!-- молния -->
+                        <path d="M7,10 L6,11.5 L7.2,11.5 L6.8,13 L8.2,11 L7,11 Z" fill="#ff6a6a"/>
                       </svg>
                     </span>
                     <span class="name">Дефибриллятор</span>
@@ -1819,10 +2020,20 @@
       desc: 'Аппарат для восстановления сердечного ритма электрическим разрядом. В умелых руках — шанс вернуть пациента с того света. Требует осторожности и точного расчёта энергии.',
       note: 'ИНВ. № 041-02 // ГИПЕРИОН',
       svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
-        '<rect x="2" y="5" width="12" height="8" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
-        '<rect x="4" y="3" width="2" height="2" fill="#3f7fbf"/>' +
-        '<rect x="10" y="3" width="2" height="2" fill="#3f7fbf"/>' +
-        '<path d="M7,7 L5,9 L7,9 L6,12 L9,8 L7,8 Z" fill="#7fe0a8"/>' +
+        '<rect x="2" y="8" width="10" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="3" y="9" width="5" height="3" fill="#1d3a2a"/>' +
+        '<path d="M3.5,10.5 L4.5,10.5 L5,9.8 L5.5,11.2 L6,10.5 L7.5,10.5" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<rect x="9" y="9.5" width="1" height="1" fill="#4fae7a"/>' +
+        '<rect x="10.5" y="9.5" width="1" height="1" fill="#3f7fbf"/>' +
+        '<rect x="11" y="7" width="2" height="1" fill="#2e5c42"/>' +
+        '<rect x="12" y="4" width="1" height="3" fill="#bfe6d0"/>' +
+        '<rect x="3" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>' +
+        '<rect x="8" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>' +
+        '<rect x="3.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>' +
+        '<rect x="8.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>' +
+        '<path d="M4.5,5 L4.5,6 L5,7 L5,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<path d="M9.5,5 L9.5,6 L9,7 L9,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<path d="M7,10 L6,11.5 L7.2,11.5 L6.8,13 L8.2,11 L7,11 Z" fill="#ff6a6a"/>' +
         '</svg>'
     },
     surgical: {
