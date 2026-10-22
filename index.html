@@ -522,4 +522,1112 @@
 
   .item-modal-close {
     position: absolute; top: 10px; right: 12px; width: 26px; height: 26px;
-    background: #0a1a2
+    background: #0a1a2e; border: 1px solid var(--green-soft); color: var(--ink);
+    font-family: inherit; font-size: 14px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .12s ease; z-index: 2; border-radius: 4px;
+  }
+  .item-modal-close:hover { background: var(--green-soft); color: #fff; }
+
+  .grid {
+    display: grid; grid-template-columns: 180px 1fr; gap: 22px;
+    flex: 1 1 auto; min-height: 0; overflow: hidden;
+  }
+  .portrait {
+    border: 1px solid var(--green-soft); background: #060d09;
+    padding: 8px; position: relative; overflow: hidden; align-self: start;
+    aspect-ratio: 3 / 4; max-height: 300px;
+    box-shadow: 0 0 20px rgba(29,58,42,.6), inset 0 0 20px rgba(10,26,46,.7);
+    border-radius: 10px;
+  }
+  .portrait svg, .portrait img {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: center top;
+    image-rendering: pixelated; image-rendering: crisp-edges;
+  }
+  .portrait::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 30% 20%, rgba(63,127,191,.1), transparent 40%), radial-gradient(circle at 70% 80%, rgba(29,58,42,.1), transparent 50%);
+    pointer-events: none; z-index: 2; animation: ghost 4s infinite;
+  }
+  .portrait::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(63,127,191,.08) 0 1px, transparent 1px 3px);
+    pointer-events: none; z-index: 3;
+  }
+  @keyframes ghost { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+
+  .portrait .label {
+    position: absolute; bottom: 6px; left: 0; right: 0;
+    text-align: center; font-size: 9px; letter-spacing: 2px; color: var(--ink);
+    background: rgba(6,13,9,.85); padding: 3px 0; z-index: 4;
+    text-shadow: 0 0 6px rgba(127,224,168,.7);
+  }
+  .portrait .corner {
+    position: absolute; width: 12px; height: 12px; border-color: var(--green-glow); z-index: 4;
+    filter: drop-shadow(0 0 4px rgba(127,224,168,.8));
+  }
+  .corner.tl { top: 6px; left: 6px; border-top: 1px solid; border-left: 1px solid; }
+  .corner.tr { top: 6px; right: 6px; border-top: 1px solid; border-right: 1px solid; }
+  .corner.bl { bottom: 6px; left: 6px; border-bottom: 1px solid; border-left: 1px solid; }
+  .corner.br { bottom: 6px; right: 6px; border-bottom: 1px solid; border-right: 1px solid; }
+
+  /* ===== ЛЕГЕНДА СТАТУСОВ ===== */
+  .relation-legend {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px;
+  }
+  .legend-chip {
+    font-size: 10px; font-weight: bold; letter-spacing: 2px;
+    padding: 4px 10px; text-transform: uppercase;
+    background: var(--c, #2e5c42);
+    color: #060d09;
+    border: 1px solid rgba(0,0,0,.6);
+    box-shadow: inset -1px -1px 0 0 rgba(0,0,0,.4), inset 1px 1px 0 0 rgba(255,255,255,.2);
+  }
+  
+  .rel-neutral     { --c: #8a8f8d; }
+  .rel-dislike     { --c: #7a5a3a; }
+  .rel-distrust    { --c: #6b5a4a; }
+  .rel-fear        { --c: #6a4a7a; }
+  .rel-interest    { --c: #d9a42b; }
+  .rel-respect     { --c: #d9c04a; }
+  .rel-inspire     { --c: #4a8ad9; }
+  .rel-sympathy    { --c: #d97a8a; }
+  .rel-love        { --c: #d93a6a; }
+  .rel-friendship  { --c: #4ad97a; }
+  .rel-strong      { --c: #2ea86a; }
+  .rel-compassion  { --c: #4ad9c4; }
+  .rel-disappoint  { --c: #6a7a8a; }
+  .rel-worry       { --c: #d98a4a; }
+  .rel-skepticism  { --c: #9a9a5a; }
+
+  .relation-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px;
+  }
+  .rel-card {
+    position: relative; padding: 12px 14px; border: 1px solid var(--green-soft);
+    background: rgba(18,48,79,.22); cursor: pointer;
+    transition: background .12s ease, transform .1s ease, box-shadow .12s ease;
+  }
+  .rel-card:hover {
+    background: rgba(29,58,42,.4);
+    box-shadow: inset 0 0 0 1px rgba(127,224,168,.4), 0 0 14px rgba(29,58,42,.5);
+    transform: translateX(2px);
+  }
+  .rel-card:active { transform: translateX(2px) translateY(1px); }
+
+  .rel-card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 6px; flex-wrap: wrap;
+  }
+  .rel-card-name {
+    font-size: 14px; letter-spacing: 1.5px; color: var(--green-glow);
+    font-weight: bold; text-shadow: 0 0 6px rgba(79,174,122,.5);
+  }
+  .rel-card-preview {
+    font-size: 11px; line-height: 1.5; color: var(--ink-dim); letter-spacing: 0.5px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .rel-card::after {
+    content: "▸"; position: absolute; top: 12px; right: 12px;
+    color: var(--green-bright); opacity: .5; font-size: 11px; transition: opacity .12s ease;
+  }
+  .rel-card:hover::after { opacity: 1; }
+
+  .rel-status {
+    display: inline-block; font-size: 9px; font-weight: bold; letter-spacing: 1.5px;
+    padding: 2px 7px; text-transform: uppercase;
+    background: var(--c, #2e5c42); color: #060d09;
+    border: 1px solid rgba(0,0,0,.6);
+    box-shadow: inset -1px -1px 0 0 rgba(0,0,0,.4), inset 1px 1px 0 0 rgba(255,255,255,.2);
+    white-space: nowrap;
+  }
+  .rel-statuses-row { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .person-modal {
+    position: fixed; inset: 0; z-index: 210; display: none;
+    align-items: center; justify-content: center;
+    background: rgba(0,0,0,.85); backdrop-filter: blur(2px); padding: 20px;
+  }
+  .person-modal.visible { display: flex; animation: modalFade .2s ease-out; }
+
+  .person-modal-box {
+    position: relative; width: min(600px, 92vw); max-height: 88vh;
+    background: var(--panel); border: 2px solid var(--green-soft);
+    border-radius: 18px / 24px;
+    box-shadow: 0 0 0 2px #000 inset, 0 0 40px rgba(29,58,42,.5), 0 0 80px rgba(18,48,79,.35);
+    padding: 26px 28px 24px 28px; animation: modalOpen .25s ease-out; overflow: auto;
+  }
+  .person-modal-box::before, .person-modal-box::after {
+    content: ""; position: absolute; width: 20px; height: 20px;
+    border: 1px solid var(--green-glow); pointer-events: none;
+    filter: drop-shadow(0 0 4px rgba(127,224,168,.8));
+  }
+  .person-modal-box::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .person-modal-box::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  .person-modal-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 2px solid var(--green-bright); padding-bottom: 10px;
+    margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
+  }
+  .person-modal-head .pm-title {
+    font-size: 13px; letter-spacing: 5px; color: var(--green-glow);
+    text-transform: uppercase; text-shadow: 0 0 10px rgba(79,174,122,.7);
+  }
+  .person-modal-head .pm-num { font-size: 11px; letter-spacing: 3px; color: var(--ink-dim); }
+
+  .person-modal-name {
+    font-size: 22px; letter-spacing: 3px; color: var(--green-glow);
+    margin-bottom: 10px; text-shadow: var(--glow-strong); text-transform: uppercase;
+  }
+  .person-modal-statuses { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .person-modal-statuses .rel-status { font-size: 10px; padding: 4px 10px; letter-spacing: 2px; }
+  .person-modal-text { font-size: 13px; line-height: 1.8; color: var(--ink); letter-spacing: 0.5px; white-space: pre-line; }
+
+  .person-modal-close {
+    position: absolute; top: 10px; right: 12px; width: 26px; height: 26px;
+    background: #0a1a2e; border: 1px solid var(--green-soft); color: var(--ink);
+    font-family: inherit; font-size: 14px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .12s ease; z-index: 2; border-radius: 4px;
+  }
+  .person-modal-close:hover { background: var(--green-soft); color: #fff; }
+
+  .coming-soon {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; padding: 80px 20px; text-align: center; font-family: "Courier New", monospace;
+  }
+  .coming-soon .cs-mark {
+    font-size: 42px; letter-spacing: 10px; color: var(--green-glow);
+    text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5);
+    animation: csPulse 2s ease-in-out infinite;
+  }
+  .coming-soon .cs-line {
+    width: 220px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
+    box-shadow: 0 0 10px rgba(127,224,168,.6);
+  }
+  .coming-soon .cs-sub { font-size: 12px; letter-spacing: 4px; color: var(--ink-dim); text-transform: uppercase; }
+  @keyframes csPulse {
+    0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(127,224,168,.8), 0 0 60px rgba(18,48,79,.5); }
+    50% { opacity: .7; text-shadow: 0 0 10px rgba(127,224,168,.5), 0 0 30px rgba(18,48,79,.3); }
+  }
+
+  .footer {
+    margin-top: 14px; border-top: 1px dashed var(--green-soft); padding-top: 10px;
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--ink-dim); letter-spacing: 2px;
+    flex: 0 0 auto; gap: 12px; flex-wrap: wrap;
+  }
+  .footer .keys span { color: var(--green-glow); border: 1px solid var(--green-soft); padding: 1px 6px; margin-right: 4px; }
+
+  .glitch {
+    position: absolute; inset: 0; pointer-events: none;
+    background: #4fae7a; mix-blend-mode: overlay; opacity: 0; z-index: 9;
+  }
+  .glitch.active { animation: glitch 0.18s steps(3) 1; }
+  @keyframes glitch {
+    0%   { opacity: .25; transform: translateX(-3px); }
+    50%  { opacity: .1; transform: translateX(4px); }
+    100% { opacity: 0; transform: translateX(0); }
+  }
+
+  .dossier-wrap { display: none; }
+  .dossier-wrap.visible { display: block; }
+
+  .history-block {
+    margin-bottom: 18px; padding: 12px 14px;
+    background: rgba(18,48,79,.22); border: 1px solid rgba(46,92,66,.45);
+    font-size: 13px; line-height: 1.8; color: var(--ink);
+  }
+  .history-block b { color: var(--green-glow); }
+
+  @media (max-width: 820px) {
+    .boot .boot-log { font-size: 10px; bottom: 16px; }
+    .boot .tent { width: 220px; height: 160px; }
+    .grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }
+    .portrait { height: 200px; width: 150px; margin: 0 auto; aspect-ratio: auto; max-height: none; }
+    .data { overflow: visible; padding-right: 0; }
+    .title { font-size: 18px; letter-spacing: 3px; }
+    .row { grid-template-columns: 130px 1fr; font-size: 13px; }
+    .row.full { font-size: 13px; }
+    .tab { padding: 6px 10px; font-size: 10px; letter-spacing: 1px; }
+    .item { grid-template-columns: 36px 42px 1fr; padding: 6px 8px; }
+    .case .case-stamp { font-size: 8px; padding: 2px 6px; }
+    .coming-soon .cs-mark { font-size: 26px; letter-spacing: 6px; }
+    .item-modal-body { grid-template-columns: 1fr; }
+    .item-modal-icon { margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= BOOT-ЭКРАН: ГОРЫ В ПАЛИТРЕ САЙТА + ПАЛАТКА + ВЬЮГА ================= -->
+<div class="boot" id="boot">
+  <div class="sky"></div>
+
+  <!-- Пиксельные горы (высокие, детализированные) -->
+  <div class="mountains">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="none" shape-rendering="crispEdges">
+      <!-- Дальний план гор -->
+      <path d="M0,600 L0,300 L80,250 L120,280 L180,200 L220,240 L280,150 L340,220 L400,180 L460,260 L520,200 L580,280 L640,170 L700,240 L760,190 L820,270 L880,210 L940,300 L1000,230 L1060,290 L1120,210 L1200,280 L1200,600 Z" fill="#0a1a2e" stroke="#12304f" stroke-width="2"/>
+      <!-- Снег на дальних горах -->
+      <path d="M280,150 L300,180 L260,180 Z" fill="#bfe6d0" opacity=".4"/>
+      <path d="M640,170 L660,200 L620,200 Z" fill="#bfe6d0" opacity=".4"/>
+      <path d="M940,210 L960,240 L920,240 Z" fill="#bfe6d0" opacity=".4"/>
+
+      <!-- Средний план гор -->
+      <path d="M0,600 L0,350 L60,300 L120,340 L180,260 L240,300 L300,210 L360,280 L420,240 L480,320 L540,260 L600,340 L660,230 L720,300 L780,250 L840,330 L900,270 L960,350 L1020,290 L1080,340 L1140,260 L1200,330 L1200,600 Z" fill="#0e1c16" stroke="#1d3a2a" stroke-width="2"/>
+      <path d="M300,210 L330,250 L270,250 Z" fill="#bfe6d0" opacity=".5"/>
+      <path d="M660,230 L690,270 L630,270 Z" fill="#bfe6d0" opacity=".5"/>
+      <path d="M1020,290 L1050,330 L990,330 Z" fill="#bfe6d0" opacity=".5"/>
+
+      <!-- Передний план гор (массивный) -->
+      <path d="M0,600 L0,400 L80,350 L160,390 L240,300 L320,350 L400,270 L480,340 L560,280 L640,370 L720,310 L800,390 L880,330 L960,410 L1040,350 L1120,390 L1200,340 L1200,600 Z" fill="#10241a" stroke="#1d3a2a" stroke-width="3"/>
+      <path d="M400,270 L440,320 L360,320 Z" fill="#bfe6d0" opacity=".6"/>
+      <path d="M800,390 L830,430 L770,430 Z" fill="#bfe6d0" opacity=".6"/>
+      <path d="M240,300 L270,340 L210,340 Z" fill="#bfe6d0" opacity=".6"/>
+    </svg>
+  </div>
+
+  <!-- Снежная земля -->
+  <div class="snow-ground"></div>
+  <div class="snowdrift d1"></div>
+  <div class="snowdrift d2"></div>
+
+  <!-- Красные следы -->
+  <div class="blood-trail">
+    <div class="print p1"></div>
+    <div class="print p2"></div>
+    <div class="print p3"></div>
+    <div class="print p4"></div>
+    <div class="print p5"></div>
+    <div class="print p6"></div>
+    <div class="print p7"></div>
+    <div class="print p8"></div>
+  </div>
+
+  <!-- Палатка (по референсу) -->
+  <div class="tent">
+    <svg viewBox="0 0 300 210" preserveAspectRatio="none" shape-rendering="crispEdges">
+      <!-- Тень -->
+      <polygon points="40,190 260,190 240,200 60,200" fill="#060d09" opacity=".7"/>
+      
+      <!-- Трава/снег у основания -->
+      <rect x="30" y="180" width="240" height="20" fill="#1d3a2a"/>
+      <rect x="35" y="185" width="230" height="15" fill="#2e5c42"/>
+      <rect x="40" y="190" width="220" height="10" fill="#1d3a2a"/>
+
+      <!-- Задняя стенка палатки (тень) -->
+      <polygon points="150,30 240,180 60,180" fill="#1a3a2a" stroke="#0a1a1a" stroke-width="2"/>
+
+      <!-- Передняя часть палатки (свет) -->
+      <polygon points="150,30 260,180 40,180" fill="#2e5c42" stroke="#1a3a2a" stroke-width="2"/>
+      
+      <!-- Скат палатки (верх) -->
+      <polygon points="150,30 210,90 90,90" fill="#4fae7a" stroke="#2e5c42" stroke-width="2"/>
+      
+      <!-- Вход в палатку -->
+      <polygon points="150,70 180,180 120,180" fill="#0a1a1a" stroke="#1a3a2a" stroke-width="2"/>
+      <polygon points="150,90 170,170 130,170" fill="#060d09"/>
+
+      <!-- Швы палатки -->
+      <line x1="150" y1="30" x2="150" y2="180" stroke="#2e5c42" stroke-width="2"/>
+      <line x1="150" y1="30" x2="260" y2="180" stroke="#4fae7a" stroke-width="2"/>
+      <line x1="150" y1="30" x2="40" y2="180" stroke="#4fae7a" stroke-width="2"/>
+      
+      <!-- Снег на палатке -->
+      <polygon points="150,30 200,70 100,70" fill="#bfe6d0" opacity=".5"/>
+      <polygon points="150,30 180,60 120,60" fill="#bfe6d0" opacity=".4"/>
+
+      <!-- Колышки/растяжки -->
+      <line x1="40" y1="180" x2="20" y2="200" stroke="#1a3a2a" stroke-width="3"/>
+      <line x1="260" y1="180" x2="280" y2="200" stroke="#1a3a2a" stroke-width="3"/>
+      <line x1="150" y1="30" x2="150" y2="10" stroke="#1a3a2a" stroke-width="3"/>
+      
+      <!-- Флаг наверху -->
+      <polygon points="150,10 170,15 150,25" fill="#ff4d4d"/>
+    </svg>
+  </div>
+
+  <!-- Снежная вьюга -->
+  <div class="blizzard" id="blizzard"></div>
+
+  <div class="crt-lines"></div>
+
+  <div class="boot-log" id="bootLog">
+    <div class="boot-log-line" data-delay="0">> EINHEIT-OS v3.1 ИНИЦИАЛИЗАЦИЯ МЕДИЦИНСКОГО ТЕРМИНАЛА...</div>
+    <div class="boot-log-line" data-delay="600">> ПРОВЕРКА ДАТЧИКОВ ЖИЗНЕОБЕСПЕЧЕНИЯ..... [OK]</div>
+    <div class="boot-log-line" data-delay="1200">> ЗАГРУЗКА ПРОТОКОЛА HABR.041........... [OK]</div>
+    <div class="boot-log-line" data-delay="1800">> ПРОВЕРКА ДОПУСКА ОПЕРАТОРА............ <span class="ok">УРОВЕНЬ: МЕД.</span></div>
+    <div class="boot-log-line" data-delay="2400">> СИНХРОНИЗАЦИЯ С ОБЪЕКТОМ «ГИПЕРИОН»...</div>
+    <div class="boot-log-line" data-delay="3000">> ОБНАРУЖЕН СИГНАЛ HABR.041............. <span class="warn">АКТИВЕН</span></div>
+    <div class="boot-log-line" data-delay="3600">> ЗАПРОС ДОСТУПА К ЛИЧНОМУ ДЕЛУ........ <span class="ok">РАЗРЕШЕНО</span></div>
+    <div class="boot-log-line" data-delay="4200">> ГОТОВО. НАЖМИТЕ «ОТКРЫТЬ ДЕЛО».</div>
+    <div class="loading">
+      <span id="bootStatus">ЗАГРУЗКА EINHEIT-OS...</span>
+      <div class="bar" id="bootBar"></div>
+    </div>
+  </div>
+
+  <button class="ok-btn launch" id="btnOpenDossier">ОТКРЫТЬ ДЕЛО</button>
+</div>
+
+<!-- ================= ДОСЬЕ ================= -->
+<div class="dossier-wrap" id="dossier">
+  <div class="crt">
+    <div class="glitch" id="glitch"></div>
+
+    <div class="screen">
+      <div class="topbar">
+        <span>EINHEIT-OS v3.1 // МОДУЛЬ-ДАТЕНБАНК // МЕДИЦИНСКИЙ ОТДЕЛ</span>
+        <span>ОПЕРАТОР: <span class="blink">█</span></span>
+      </div>
+
+      <div class="title">
+        <span>ЛИЧНОЕ ДЕЛО // HABR.041</span>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="dossier">Досье</button>
+        <button class="tab" data-tab="history">История модуля</button>
+        <button class="tab" data-tab="relations">Взаимоотношения на объекте</button>
+        <button class="tab locked" data-tab="secret">Секретно</button>
+      </div>
+
+      <!-- ВКЛАДКА 1: ДОСЬЕ -->
+      <div class="tab-content active" id="tab-dossier">
+        <div class="data with-bg">
+          <div class="grid">
+
+            <div class="portrait">
+              <span class="corner tl"></span>
+              <span class="corner tr"></span>
+              <span class="corner bl"></span>
+              <span class="corner br"></span>
+              <img src="HABRp.png" alt="HABR.041">
+              <div class="label">HABR.041 // АКТИВЕН</div>
+            </div>
+
+            <div>
+              <div class="case">
+                <div class="case-stamp">МЕД.</div>
+                <div class="case-head">
+                  <h2>ФОРМА 1-A // БАЗОВЫЕ ДАННЫЕ</h2>
+                  <span class="case-num">ЛИСТ 01</span>
+                </div>
+
+                <div class="section">
+                  <div class="row"><span class="k">Идентификатор</span><span class="v">HABR.041</span></div>
+                  <div class="row"><span class="k">Позывной</span><span class="v">Ястреб (0-4-1)</span></div>
+                  <div class="row"><span class="k">Тип</span><span class="v">Стандартная реплика модели HABR</span></div>
+                  <div class="row"><span class="k">Место сборки</span><span class="v">Хаймат</span></div>
+                  <div class="row"><span class="k">Назначение</span><span class="v ok">Полевой хирург</span></div>
+                  <div class="row"><span class="k">Статус</span><span class="v ok">АКТИВЕН</span></div>
+                  <div class="row"><span class="k">Приписка</span><span class="v">Объект ERES-427</span></div>
+                  <div class="row"><span class="k">Перевод</span><span class="v">ERES-427 (в качестве полевого врача)</span></div>
+                </div>
+              </div>
+
+              <div class="case">
+                <div class="case-stamp">ФОРМА 2-B</div>
+                <div class="case-head">
+                  <h2>ВНЕШНОСТЬ</h2>
+                  <span class="case-num">ЛИСТ 02</span>
+                </div>
+                <div class="section">
+                  <div class="row full">
+                    Стандартная HABR, холодный взгляд на лице без макияжа, часы на левом запястье
+                    и медицинская сумка на поясе.
+                  </div>
+                </div>
+              </div>
+
+              <div class="case">
+                <div class="case-stamp">ФОРМА 3-C</div>
+                <div class="case-head">
+                  <h2>ПСИХОПРОФИЛЬ / ДОПУСК</h2>
+                  <span class="case-num">ЛИСТ 03</span>
+                </div>
+                <div class="section">
+                  <div class="row"><span class="k">Стабильность</span><span class="v"><span class="bar" style="--w:100%"></span> 100%</span></div>
+                  <div class="row"><span class="k">Отклонения</span><span class="v ok">НЕ ВЫЯВЛЕНЫ</span></div>
+                  <div class="row"><span class="k">Медицинский допуск</span><span class="v ok">ПОДТВЕРЖДЁН</span></div>
+                </div>
+              </div>
+
+              <div class="case">
+                <div class="case-stamp">СТАРТ</div>
+                <div class="case-head">
+                  <h2>СТАРТОВЫЕ ПРЕДМЕТЫ</h2>
+                  <span class="case-num">6 ЕДИНИЦ</span>
+                </div>
+                <div class="items">
+
+                  <div class="item" data-item="analyzer">
+                    <span class="num">01</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <rect x="3" y="2" width="10" height="12" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <rect x="4" y="3" width="8" height="4" fill="#1d3a2a"/>
+                        <rect x="5" y="4" width="2" height="1" fill="#7fe0a8"/>
+                        <rect x="8" y="4" width="2" height="1" fill="#4fae7a"/>
+                        <rect x="4" y="8" width="8" height="1" fill="#3f7fbf"/>
+                        <rect x="4" y="10" width="5" height="1" fill="#2e5c42"/>
+                        <rect x="10" y="10" width="2" height="2" fill="#7fe0a8"/>
+                      </svg>
+                    </span>
+                    <span class="name">Анализатор здоровья</span>
+                  </div>
+
+                  <div class="item" data-item="defib">
+                    <span class="num">02</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <rect x="2" y="8" width="10" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <rect x="3" y="9" width="5" height="3" fill="#1d3a2a"/>
+                        <path d="M3.5,10.5 L4.5,10.5 L5,9.8 L5.5,11.2 L6,10.5 L7.5,10.5" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <rect x="9" y="9.5" width="1" height="1" fill="#4fae7a"/>
+                        <rect x="10.5" y="9.5" width="1" height="1" fill="#3f7fbf"/>
+                        <rect x="11" y="7" width="2" height="1" fill="#2e5c42"/>
+                        <rect x="12" y="4" width="1" height="3" fill="#bfe6d0"/>
+                        <rect x="3" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>
+                        <rect x="8" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>
+                        <rect x="3.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>
+                        <rect x="8.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>
+                        <path d="M4.5,5 L4.5,6 L5,7 L5,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <path d="M9.5,5 L9.5,6 L9,7 L9,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>
+                        <path d="M7,10 L6,11.5 L7.2,11.5 L6.8,13 L8.2,11 L7,11 Z" fill="#ff6a6a"/>
+                      </svg>
+                    </span>
+                    <span class="name">Дефибриллятор</span>
+                  </div>
+
+                  <div class="item" data-item="surgical">
+                    <span class="num">03</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <rect x="2" y="7" width="12" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <rect x="3" y="8" width="4" height="1" fill="#7fe0a8"/>
+                        <rect x="3" y="10" width="6" height="1" fill="#3f7fbf"/>
+                        <rect x="10" y="2" width="1" height="5" fill="#bfe6d0"/>
+                        <rect x="9" y="6" width="3" height="2" fill="#2e5c42"/>
+                        <rect x="12" y="2" width="1" height="5" fill="#bfe6d0"/>
+                      </svg>
+                    </span>
+                    <span class="name">Хирургический набор</span>
+                  </div>
+
+                  <div class="item" data-item="medbag">
+                    <span class="num">04</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <rect x="2" y="5" width="12" height="8" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <rect x="6" y="3" width="4" height="2" fill="#1d3a2a" stroke="#7fe0a8" stroke-width="0.4"/>
+                        <rect x="2" y="7" width="12" height="1" fill="#2e5c42"/>
+                        <rect x="7" y="9" width="2" height="3" fill="#7fe0a8"/>
+                        <rect x="6" y="10" width="4" height="1" fill="#7fe0a8"/>
+                      </svg>
+                    </span>
+                    <span class="name">Медицинская сумка</span>
+                  </div>
+
+                  <div class="item" data-item="watch">
+                    <span class="num">05</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <circle cx="8" cy="8" r="5" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <circle cx="8" cy="8" r="3.5" fill="#060d09"/>
+                        <rect x="7.5" y="5" width="1" height="3" fill="#7fe0a8"/>
+                        <rect x="8" y="7.5" width="2.5" height="1" fill="#7fe0a8"/>
+                        <rect x="3" y="3" width="2" height="2" fill="#3f7fbf"/>
+                        <rect x="11" y="11" width="2" height="2" fill="#3f7fbf"/>
+                      </svg>
+                    </span>
+                    <span class="name">Наручные часы</span>
+                  </div>
+
+                  <div class="item" data-item="lighter">
+                    <span class="num">06</span>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" shape-rendering="crispEdges">
+                        <rect x="5" y="4" width="6" height="10" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>
+                        <rect x="5" y="4" width="6" height="2" fill="#060d09"/>
+                        <rect x="6" y="6" width="4" height="1" fill="#7fe0a8"/>
+                        <rect x="6" y="8" width="4" height="1" fill="#7fe0a8"/>
+                        <rect x="6" y="10" width="4" height="1" fill="#7fe0a8"/>
+                        <circle cx="7" cy="7" r="0.5" fill="#bfe6d0"/>
+                        <circle cx="9" cy="9" r="0.5" fill="#bfe6d0"/>
+                        <circle cx="8" cy="11" r="0.5" fill="#bfe6d0"/>
+                        <rect x="6" y="2" width="4" height="1" fill="#bfe6d0"/>
+                        <rect x="7" y="0" width="2" height="2" fill="#3f7fbf"/>
+                      </svg>
+                    </span>
+                    <span class="name">Зажигалка с 3-мя звёздами Нации</span>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 2: ИСТОРИЯ -->
+      <div class="tab-content" id="tab-history">
+        <div class="data with-bg">
+
+          <div class="case">
+            <div class="case-stamp">АРХИВ</div>
+            <div class="case-head">
+              <h2>ВЫПИСКА ИЗ ЛИЧНОГО ДЕЛА</h2>
+              <span class="case-num">ЛИСТ 04</span>
+            </div>
+
+            <div class="history-block">
+              <b>Жизненный путь</b><br><br>
+              Модуль Ястреб 0-4-1 была собрана на Хаймате 23.04.2157 на стандартном промышленном
+              заводе для сборки модулей военной направленности в самом Сердце Революции.
+              После сборки сразу же приступила к ведению службы в гарнизоне одного из жилых
+              секторов, но спустя всего три недели была направлена на службу в военный госпиталь
+              на одной из военных баз Винеты, где и должна была получить дальнейшее повышение
+              квалификации и боевой опыт.
+            </div>
+
+            <div class="history-block">
+              Служба шла своим чередом, отбоя от пациентов для практики у модуля практически
+              не было, учитывая редкие диверсии имперских лазутчиков, а также то, что база
+              расположена на месте бывшей тюрьмы и по-прежнему служила распределительным центром
+              исправления для военнопленных и штрафных элементов Нации, и в виду высокой
+              заполненности тюрьмы заморозка объекта и его деятельности постоянно откладывалась.
+            </div>
+
+            <div class="history-block">
+              В один из казалось бы штатных служебных циклов Сорок Первая оказывала первую помощь
+              штрафнику, получившему ФН, не вдаваясь особо вниманием в своё окружение в виде ещё
+              одного штрафника-санитара рядом с собой.
+            </div>
+
+            <div class="history-block">
+              Как только Ястреб почти закончила со своей работой и начала собирать свой
+              хирургический набор, прозвучал вой сирен, оповещающий о том, что на объекте
+              случилось чрезвычайное положение, и почти сразу же с этим отдалённо от медблока
+              послышались первые выстрелы из огнестрельного оружия и крики гештальтов,
+              означающие лишь одно — бунт и диверсию прямо на территории объекта.
+            </div>
+
+            <div class="history-block">
+              Не успев даже среагировать на ситуацию с одним лишь скальпелем в руках, Сорок
+              Первая заметила, как штрафник, стоящий рядом, тут же бросил уборку и в этой
+              неразберихе ринулся к кобуре её табельного оружия у неё на бедре, едва только
+              успев ударить локтем в живот нападающего; пациент, будущий в сознании, решился
+              помочь своему сообщнику, схватив Ястреба за руку и потянув её на себя, но в ответ
+              получил воткнутый в свою руку скальпель и, завопив от боли, отпрянул, оставив
+              Ястреба один на один. Та, в свою очередь, сумев увернуться от захвата, ударила
+              стоящего штрафника в солнечное сплетение, повалив его на пол, и так быстро, как
+              никогда раньше, выхватила свой протектор из кобуры, передёрнула затвор и присекла
+              все действия нарушителей огнём на поражение, а после побежала на помощь своим
+              товарищам в уже разгоревшемся бою.
+            </div>
+
+            <div class="history-block">
+              Объект и состав за такой провал в контроле безопасности ожидало лишь расформирование
+              и переправка на новые места службы, а кого-то даже списание. Ястреб не получила
+              поощрений за свою оперативную деятельность, но на своё счастье не возымела и
+              наказания за крайние меры в сторону своей самозащиты.
+            </div>
+
+            <div class="history-block">
+              В знак признательности от своих товарищей, с которыми она успела наладить хорошие
+              отношения и которых латала на ходу во время инцидента, получила на память наручные
+              часы и зажигалку, гравированную 3-мя звёздами Нации, хоть она и не курила, но всё
+              равно взяла подарок с собой.
+            </div>
+
+            <div class="history-block">
+              В дальнейшем была направлена на Ротфронт, где ближайшие три месяца её ожидала
+              гарнизонная служба и работа в гражданском секторе по своей медицинской
+              направленности, где она доберёт опыта в хирургии и пойдёт дальше.
+            </div>
+
+            <div class="history-block">
+              Здесь модуль закрепил свои знания медицины, регулярно оказывая помощь персоналу,
+              получавшему травмы средней и лёгкой тяжести, ожоги, переломы и прочие рабочие
+              травмы, с заделом на более сложные операции, что ей понадобится проводить.
+            </div>
+
+            <div class="history-block">
+              Хоть служба казалась ещё более спокойной, но Ястреб, наученная горьким опытом,
+              частенько предпочитала ограничивать передвижение штрафникам и сомнительным
+              личностям, которым приходилось оказывать помощь, связывая им руки на своём
+              операционном столе и отказываясь работать в одном помещении со штрафниками.
+            </div>
+
+            <div class="history-block">
+              В остальном, выполняя свои служебные обязанности, она не старалась привязываться
+              к товарищам, ибо понимала, что полевой хирург долго здесь не пробудет, но
+              проявляла интерес ко многим медицинским операциям, что проводились, и обсуждала
+              ход этих операций, а также новые методы их проведения с товарищами по ремеслу.
+            </div>
+
+            <div class="history-block">
+              Отслужив ровно три месяца на Ротфронте, в конечном итоге направлена в качестве
+              полевого врача уже на ERES-427, готовясь выполнять свой долг перед Нацией в
+              возможно последнем месте своей службы.
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 3: ВЗАИМООТНОШЕНИЯ -->
+      <div class="tab-content" id="tab-relations">
+        <div class="data">
+
+          <div class="case">
+            <div class="case-stamp">Ф. 5-R</div>
+            <div class="case-head">
+              <h2>ВЗАИМООТНОШЕНИЯ НА ОБЪЕКТЕ</h2>
+              <span class="case-num">ЛИСТ 05</span>
+            </div>
+
+            <div class="section">
+              <h2>Легенда статусов</h2>
+              <div class="relation-legend">
+                <span class="legend-chip rel-neutral">Нейтралитет</span>
+                <span class="legend-chip rel-dislike">Неприязнь</span>
+                <span class="legend-chip rel-distrust">Недоверие</span>
+                <span class="legend-chip rel-fear">Страх</span>
+                <span class="legend-chip rel-interest">Неподкупный интерес</span>
+                <span class="legend-chip rel-respect">Уважение</span>
+                <span class="legend-chip rel-inspire">Вдохновение</span>
+                <span class="legend-chip rel-sympathy">Симпатия</span>
+                <span class="legend-chip rel-love">Любовь</span>
+                <span class="legend-chip rel-friendship">Дружба</span>
+                <span class="legend-chip rel-strong">Крепкая связь</span>
+                <span class="legend-chip rel-compassion">Сочувствие</span>
+                <span class="legend-chip rel-disappoint">Разочарование</span>
+                <span class="legend-chip rel-worry">Беспокойство</span>
+                <span class="legend-chip rel-skepticism">Скептический настрой</span>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2>Картотека связей</h2>
+              <div class="relation-grid" id="relationGrid"></div>
+            </div>
+
+            <div class="section">
+              <h2>Отметки куратора</h2>
+              <div class="row full" style="text-align:center; color:var(--ink-dim);">
+                — ПУСТО —
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 4: СЕКРЕТНО -->
+      <div class="tab-content" id="tab-secret">
+        <div class="data">
+
+          <div class="case">
+            <div class="case-stamp">УР. 01</div>
+            <div class="case-head">
+              <h2>// СЕКРЕТНО //</h2>
+              <span class="case-num">ЛИСТ 06</span>
+            </div>
+
+            <div class="coming-soon">
+              <div class="cs-mark">COMING SOON</div>
+              <div class="cs-line"></div>
+              <div class="cs-sub">ДАННЫЕ ЗАСЕКРЕЧЕНЫ · ДОСТУП ОГРАНИЧЕН</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="keys">
+          <span>F1</span> СПРАВКА
+          <span>F5</span> ОБНОВИТЬ
+          <span>ESC</span> ВЫХОД
+        </div>
+        <div id="clock">--:--:--</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= МОДАЛКА ПРЕДМЕТА ================= -->
+<div class="item-modal" id="itemModal">
+  <div class="item-modal-box">
+    <button class="item-modal-close" id="itemModalClose" aria-label="Закрыть">✕</button>
+    <div class="item-modal-head">
+      <span class="im-title">ЛИЧНЫЙ ПРЕДМЕТ</span>
+      <span class="im-num" id="itemModalNum">— / 06</span>
+    </div>
+    <div class="item-modal-body">
+      <div class="item-modal-icon" id="itemModalIcon"></div>
+      <div class="item-modal-text">
+        <h3 id="itemModalName">—</h3>
+        <p id="itemModalDesc">—</p>
+        <span class="im-note" id="itemModalNote">ИНВ. № — / ГИПЕРИОН</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= МОДАЛКА ПЕРСОНЫ ================= -->
+<div class="person-modal" id="personModal">
+  <div class="person-modal-box">
+    <button class="person-modal-close" id="personModalClose" aria-label="Закрыть">✕</button>
+    <div class="person-modal-head">
+      <span class="pm-title">ДОСЬЕ СВЯЗИ</span>
+      <span class="pm-num" id="personModalNum">— / 00</span>
+    </div>
+    <div class="person-modal-name" id="personModalName">—</div>
+    <div class="person-modal-statuses" id="personModalStatuses"></div>
+    <div class="person-modal-text" id="personModalText">—</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Генерация снежной вьюги
+  var blizzard = document.getElementById('blizzard');
+  if (blizzard) {
+    for (var i = 0; i < 100; i++) {
+      var flake = document.createElement('div');
+      flake.className = 'flake';
+      flake.style.left = Math.random() * 100 + '%';
+      flake.style.width = (2 + Math.random() * 5) + 'px';
+      flake.style.height = flake.style.width;
+      flake.style.animationDuration = (3 + Math.random() * 6) + 's';
+      flake.style.animationDelay = (Math.random() * 5) + 's';
+      flake.style.opacity = (0.4 + Math.random() * 0.6);
+      flake.style.animationName = 'blizzardFall';
+      blizzard.appendChild(flake);
+    }
+  }
+
+  var bootBar = document.getElementById('bootBar');
+  var bootProgress = 0;
+  if (bootBar) {
+    var bootInterval = setInterval(function () {
+      bootProgress = Math.min(100, bootProgress + 3 + Math.random() * 5);
+      bootBar.style.setProperty('--w', bootProgress + '%');
+      if (bootProgress >= 100) clearInterval(bootInterval);
+    }, 240);
+  }
+
+  var bootLogLines = document.querySelectorAll('.boot-log-line');
+  bootLogLines.forEach(function (line) {
+    var d = parseInt(line.getAttribute('data-delay'), 10) || 0;
+    line.style.setProperty('--d', d);
+  });
+
+  function openDossier() {
+    var boot = document.getElementById('boot');
+    var dossier = document.getElementById('dossier');
+    if (!boot || !dossier) return;
+    boot.classList.add('done');
+    setTimeout(function () {
+      boot.style.display = 'none';
+      dossier.classList.add('visible');
+    }, 800);
+  }
+
+  var btnDossier = document.getElementById('btnOpenDossier');
+  if (btnDossier) btnDossier.addEventListener('click', openDossier);
+
+  setTimeout(function () {
+    var boot = document.getElementById('boot');
+    if (boot && !boot.classList.contains('done')) {
+      openDossier();
+    }
+  }, 6500);
+
+  var tabs = document.querySelectorAll('.tab');
+  var tabContents = document.querySelectorAll('.tab-content');
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var target = tab.getAttribute('data-tab');
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tabContents.forEach(function (c) { c.classList.remove('active'); });
+      tab.classList.add('active');
+      var content = document.getElementById('tab-' + target);
+      if (content) content.classList.add('active');
+    });
+  });
+
+  var ITEMS = {
+    analyzer: {
+      num: '01',
+      name: 'Анализатор здоровья',
+      desc: 'Портативный медицинский сканер для быстрой оценки состояния пациента: пульс, давление, температура, насыщение крови кислородом. Незаменим в полевых условиях, когда нет времени на полноценное обследование.',
+      note: 'ИНВ. № 041-01 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<rect x="3" y="2" width="10" height="12" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="4" y="3" width="8" height="4" fill="#1d3a2a"/>' +
+        '<rect x="5" y="4" width="2" height="1" fill="#7fe0a8"/>' +
+        '<rect x="8" y="4" width="2" height="1" fill="#4fae7a"/>' +
+        '<rect x="4" y="8" width="8" height="1" fill="#3f7fbf"/>' +
+        '<rect x="4" y="10" width="5" height="1" fill="#2e5c42"/>' +
+        '<rect x="10" y="10" width="2" height="2" fill="#7fe0a8"/>' +
+        '</svg>'
+    },
+    defib: {
+      num: '02',
+      name: 'Дефибриллятор',
+      desc: 'Аппарат для восстановления сердечного ритма электрическим разрядом. В умелых руках — шанс вернуть пациента с того света. Требует осторожности и точного расчёта энергии.',
+      note: 'ИНВ. № 041-02 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<rect x="2" y="8" width="10" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="3" y="9" width="5" height="3" fill="#1d3a2a"/>' +
+        '<path d="M3.5,10.5 L4.5,10.5 L5,9.8 L5.5,11.2 L6,10.5 L7.5,10.5" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<rect x="9" y="9.5" width="1" height="1" fill="#4fae7a"/>' +
+        '<rect x="10.5" y="9.5" width="1" height="1" fill="#3f7fbf"/>' +
+        '<rect x="11" y="7" width="2" height="1" fill="#2e5c42"/>' +
+        '<rect x="12" y="4" width="1" height="3" fill="#bfe6d0"/>' +
+        '<rect x="3" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>' +
+        '<rect x="8" y="3" width="3" height="2" fill="#2e5c42" stroke="#7fe0a8" stroke-width="0.4"/>' +
+        '<rect x="3.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>' +
+        '<rect x="8.5" y="3.5" width="2" height="1" fill="#1d3a2a"/>' +
+        '<path d="M4.5,5 L4.5,6 L5,7 L5,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<path d="M9.5,5 L9.5,6 L9,7 L9,8" stroke="#7fe0a8" stroke-width="0.4" fill="none"/>' +
+        '<path d="M7,10 L6,11.5 L7.2,11.5 L6.8,13 L8.2,11 L7,11 Z" fill="#ff6a6a"/>' +
+        '</svg>'
+    },
+    surgical: {
+      num: '03',
+      name: 'Хирургический набор',
+      desc: 'Скальпели, зажимы, иглодержатели, шовный материал. Всё, что нужно для оперативного вмешательства в полевых условиях. Скальпель из этого набора однажды спас саму Ястреб.',
+      note: 'ИНВ. № 041-03 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<rect x="2" y="7" width="12" height="6" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="3" y="8" width="4" height="1" fill="#7fe0a8"/>' +
+        '<rect x="3" y="10" width="6" height="1" fill="#3f7fbf"/>' +
+        '<rect x="10" y="2" width="1" height="5" fill="#bfe6d0"/>' +
+        '<rect x="9" y="6" width="3" height="2" fill="#2e5c42"/>' +
+        '<rect x="12" y="2" width="1" height="5" fill="#bfe6d0"/>' +
+        '</svg>'
+    },
+    medbag: {
+      num: '04',
+      name: 'Медицинская сумка',
+      desc: 'Стандартная сумка полевого медика с отделениями под перевязочные материалы, медикаменты и инструменты. Носится на поясе, всегда под рукой. На клапане вышит номер «041».',
+      note: 'ИНВ. № 041-04 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<rect x="2" y="5" width="12" height="8" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="6" y="3" width="4" height="2" fill="#1d3a2a" stroke="#7fe0a8" stroke-width="0.4"/>' +
+        '<rect x="2" y="7" width="12" height="1" fill="#2e5c42"/>' +
+        '<rect x="7" y="9" width="2" height="3" fill="#7fe0a8"/>' +
+        '<rect x="6" y="10" width="4" height="1" fill="#7fe0a8"/>' +
+        '</svg>'
+    },
+    watch: {
+      num: '05',
+      name: 'Наручные часы',
+      desc: 'Наручные часы, подаренные товарищами с Винеты после инцидента на базе. Простой армейский механизм, но для Ястреб они стали напоминанием о том, что она выжила и не осталась одна.',
+      note: 'ИНВ. № 041-05 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<circle cx="8" cy="8" r="5" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<circle cx="8" cy="8" r="3.5" fill="#060d09"/>' +
+        '<rect x="7.5" y="5" width="1" height="3" fill="#7fe0a8"/>' +
+        '<rect x="8" y="7.5" width="2.5" height="1" fill="#7fe0a8"/>' +
+        '<rect x="3" y="3" width="2" height="2" fill="#3f7fbf"/>' +
+        '<rect x="11" y="11" width="2" height="2" fill="#3f7fbf"/>' +
+        '</svg>'
+    },
+    lighter: {
+      num: '06',
+      name: 'Зажигалка с 3-мя звёздами Нации',
+      desc: 'Металлическая зажигалка с гравировкой трёх звёзд Нации. Подарок товарищей по гарнизону. Сама Ястреб не курит, но бережёт её как память о людях, с которыми служила.',
+      note: 'ИНВ. № 041-06 // ГИПЕРИОН',
+      svg: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+        '<rect x="5" y="4" width="6" height="10" fill="#0a1a2e" stroke="#7fe0a8" stroke-width="0.6"/>' +
+        '<rect x="5" y="4" width="6" height="2" fill="#060d09"/>' +
+        '<rect x="6" y="6" width="4" height="1" fill="#7fe0a8"/>' +
+        '<rect x="6" y="8" width="4" height="1" fill="#7fe0a8"/>' +
+        '<rect x="6" y="10" width="4" height="1" fill="#7fe0a8"/>' +
+        '<circle cx="7" cy="7" r="0.5" fill="#bfe6d0"/>' +
+        '<circle cx="9" cy="9" r="0.5" fill="#bfe6d0"/>' +
+        '<circle cx="8" cy="11" r="0.5" fill="#bfe6d0"/>' +
+        '<rect x="6" y="2" width="4" height="1" fill="#bfe6d0"/>' +
+        '<rect x="7" y="0" width="2" height="2" fill="#3f7fbf"/>' +
+        '</svg>'
+    }
+  };
+
+  var modal = document.getElementById('itemModal');
+  var modalClose = document.getElementById('itemModalClose');
+  var modalNum = document.getElementById('itemModalNum');
+  var modalIcon = document.getElementById('itemModalIcon');
+  var modalName = document.getElementById('itemModalName');
+  var modalDesc = document.getElementById('itemModalDesc');
+  var modalNote = document.getElementById('itemModalNote');
+
+  function openItem(key) {
+    var it = ITEMS[key];
+    if (!it || !modal) return;
+    modalNum.textContent = it.num + ' / 06';
+    modalIcon.innerHTML = it.svg;
+    modalName.textContent = it.name;
+    modalDesc.textContent = it.desc;
+    modalNote.textContent = it.note;
+    modal.classList.add('visible');
+  }
+
+  function closeItem() {
+    if (modal) modal.classList.remove('visible');
+  }
+
+  document.querySelectorAll('.item').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var key = el.getAttribute('data-item');
+      openItem(key);
+    });
+  });
+
+  if (modalClose) modalClose.addEventListener('click', closeItem);
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeItem();
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('visible')) {
+        closeItem();
+        e.stopPropagation();
+      }
+    }
+  }, true);
+
+  var RELATIONS = [];
+
+  var relGrid = document.getElementById('relationGrid');
+  var personModal = document.getElementById('personModal');
+  var personModalClose = document.getElementById('personModalClose');
+  var personModalNum = document.getElementById('personModalNum');
+  var personModalName = document.getElementById('personModalName');
+  var personModalStatuses = document.getElementById('personModalStatuses');
+  var personModalText = document.getElementById('personModalText');
+
+  function renderRelations() {
+    if (!relGrid) return;
+    relGrid.innerHTML = '';
+    if (RELATIONS.length === 0) {
+      relGrid.innerHTML = '<div class="row full" style="grid-column:1/-1;text-align:center;color:var(--ink-dim);">— КАРТОТЕКА СВЯЗЕЙ ПУСТА —</div>';
+      return;
+    }
+    RELATIONS.forEach(function (rel, idx) {
+      var card = document.createElement('div');
+      card.className = 'rel-card';
+      card.setAttribute('data-rel-id', rel.id);
+
+      var statusesHtml = rel.statuses.map(function (st) {
+        return '<span class="rel-status ' + st.cls + '">' + st.label + '</span>';
+      }).join('');
+
+      var preview = rel.text.split('\n')[0];
+      if (preview.length > 110) preview = preview.slice(0, 107) + '…';
+
+      card.innerHTML =
+        '<div class="rel-card-head">' +
+          '<span class="rel-card-name">' + rel.name + '</span>' +
+          '<span class="rel-statuses-row">' + statusesHtml + '</span>' +
+        '</div>' +
+        '<div class="rel-card-preview">' + preview + '</div>';
+
+      card.addEventListener('click', function () { openPerson(idx); });
+      relGrid.appendChild(card);
+    });
+  }
+
+  function openPerson(idx) {
+    var rel = RELATIONS[idx];
+    if (!rel || !personModal) return;
+
+    personModalNum.textContent = ('0' + (idx + 1)).slice(-2) + ' / ' + ('0' + RELATIONS.length).slice(-2);
+    personModalName.textContent = rel.name;
+    personModalStatuses.innerHTML = rel.statuses.map(function (st) {
+      return '<span class="rel-status ' + st.cls + '">' + st.label + '</span>';
+    }).join('');
+    personModalText.textContent = rel.text;
+
+    personModal.classList.add('visible');
+  }
+
+  function closePerson() {
+    if (personModal) personModal.classList.remove('visible');
+  }
+
+  if (personModalClose) personModalClose.addEventListener('click', closePerson);
+  if (personModal) {
+    personModal.addEventListener('click', function (e) {
+      if (e.target === personModal) closePerson();
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (personModal && personModal.classList.contains('visible')) {
+        closePerson();
+        e.stopPropagation();
+      }
+    }
+  }, true);
+
+  renderRelations();
+
+  function tick() {
+    var el = document.getElementById('clock');
+    if (!el) return;
+    var d = new Date();
+    var p = function (n) { return String(n).padStart(2, '0'); };
+    el.textContent = p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  }
+  setInterval(tick, 1000); tick();
+
+  var glitch = document.getElementById('glitch');
+  function scheduleGlitch() {
+    var delay = 4000 + Math.random() * 9000;
+    setTimeout(function () {
+      if (!glitch) return;
+      glitch.classList.add('active');
+      setTimeout(function () { glitch.classList.remove('active'); }, 200);
+      scheduleGlitch();
+    }, delay);
+  }
+  scheduleGlitch();
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('visible')) return;
+      if (personModal && personModal.classList.contains('visible')) return;
+      document.body.style.transition = 'opacity .4s';
+      document.body.style.opacity = '0';
+      setTimeout(function () {
+        document.body.innerHTML =
+          '<div style="color:#7fe0a8;font-family:monospace;background:#060d09;height:100vh;display:flex;align-items:center;justify-content:center;letter-spacing:6px;text-shadow:0 0 20px #4fae7a;font-size:20px">СВЯЗЬ ПРЕРВАНА_</div>';
+      }, 400);
+    }
+    if (e.key === 'F5') { e.preventDefault(); location.reload(); }
+  });
+
+})();
+</script>
+</body>
+</html>
